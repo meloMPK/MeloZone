@@ -9,6 +9,7 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
+        SongUtils.Play(DownloadUtils.DownloadSong("10.mp3"));
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 }
