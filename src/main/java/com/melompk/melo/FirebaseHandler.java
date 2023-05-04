@@ -4,6 +4,8 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -19,7 +21,7 @@ public class FirebaseHandler {
     public static Storage storage;
     public static void initialize() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("/Users/andrzej/Documents/TCS/PO2023/MeloZone/MeloZone/src/main/resources/com/melompk/melo/Database/melozone-12081-firebase-adminsdk-yqrh2-724202e019.json");
+                new FileInputStream(new File("").getAbsolutePath() + "/src/main/resources/Database/melozone-12081-firebase-adminsdk-yqrh2-724202e019.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
