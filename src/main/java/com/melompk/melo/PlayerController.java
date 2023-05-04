@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 public class PlayerController implements Initializable {
 
@@ -29,7 +30,9 @@ public class PlayerController implements Initializable {
     private TimerTask task;
     private boolean isPlaying;
 
-    public void playMedia() {}
+    public void playMedia() throws ExecutionException, InterruptedException {
+        SongUtils.Play(DownloadUtils.DownloadSong(GetData.FindSongId("Jacek Kaczmarski", "Mury", "Mury")));
+    }
 
     public void pauseMedia() {}
 
