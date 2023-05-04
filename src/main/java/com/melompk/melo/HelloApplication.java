@@ -16,6 +16,10 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    @Override
+    public void stop(){
+        SongUtils.Clear();
+    }
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         FirebaseHandler.initialize();
