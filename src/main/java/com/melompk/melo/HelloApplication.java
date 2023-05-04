@@ -23,7 +23,6 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         FirebaseHandler.initialize();
-        GetData.FetchSample();
         launch();
     }
 }
