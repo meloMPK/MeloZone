@@ -21,13 +21,13 @@ public class FirebaseHandler {
     public static Storage storage;
     public static void initialize() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream(new File("").getAbsolutePath() + "/src/main/resources/Database/melozone-12081-firebase-adminsdk-yqrh2-724202e019.json");
+                new FileInputStream(new File("").getAbsolutePath() + "/src/main/resources/Database/melozone-7db34-firebase-adminsdk-kuyso-b2b06fbe51.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
         FirebaseApp.initializeApp(options);
         db = FirestoreClient.getFirestore();
-        storage = StorageOptions.newBuilder().setProjectId("melozone-12081").build().getService();
+        storage = StorageOptions.newBuilder().setProjectId("melozone-7db34").build().getService();
     }
 }

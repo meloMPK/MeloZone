@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 public class DownloadUtils {
     public static Path DownloadSong(String name){
-        Blob blob = FirebaseHandler.storage.get(BlobId.of("melozone-12081.appspot.com", name));
+        Blob blob = FirebaseHandler.storage.get(BlobId.of("melozone-7db34.appspot.com", name));
         Path res = Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Songs/"+ name);
         blob.downloadTo(res);
         return res;
