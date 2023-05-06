@@ -31,10 +31,13 @@ public class PlayerController implements Initializable {
     private boolean isPlaying;
 
     public void playMedia() throws ExecutionException, InterruptedException {
-        SongUtils.Play(DownloadUtils.DownloadSong(GetData.FindSongId("Jacek Kaczmarski", "Mury", "Mury")));
+        SongQueue.AddAll(GetData.GetAllSongs());
+        SongQueue.Play();
     }
 
-    public void pauseMedia() {}
+    public void pauseMedia() {
+        SongUtils.Pause();
+    }
 
     public void nextMedia() {}
 

@@ -20,6 +20,7 @@ public class MeloApplication extends Application {
 
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
+            SongUtils.Clear();
             Platform.exit();
             System.exit(0);
         });
