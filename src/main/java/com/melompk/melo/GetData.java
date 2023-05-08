@@ -24,16 +24,6 @@ public class GetData {//Model
                 .whereEqualTo("Name", album).get().get().getDocuments().get(0).getData().get("dbId");
         return new Song(title,album,artist, songId, albumId);
     }
-    public static void FetchSample() throws ExecutionException, InterruptedException {//deprecated
-        DocumentReference docRef = FirebaseHandler.db.collection("Songs").document("1");
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
-            System.out.println("Document data: " + document.getData());
-        } else {
-            System.out.println("No such document!");
-        }
-    }
     public static LinkedList<Song> GetAllSongs() throws ExecutionException, InterruptedException {
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song: FirebaseHandler.db.collection("Songs").get().get().getDocuments()){

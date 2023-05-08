@@ -27,12 +27,6 @@ public class SongUtils {//Controller
             Play();
         });
     }
-    public static void Play(Path path) { //deprecated
-        Pause();
-        curMedia = new Media(path.toUri().toString());
-        player = new MediaPlayer(curMedia);
-        player.play();
-    }
     public static void Pause() {
         if(player!=null){
             player.pause();
