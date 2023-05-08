@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class DownloadUtils {
+public class DownloadUtils {//Model
     public static void DownloadSong(String id){
         id+=".mp3";
         if(!IsSongDownloaded(id)) {

@@ -6,23 +6,31 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class SongUtils {
-    static Media curSong;
+public class SongUtils {//Controller
+    static Media curMedia;
     static MediaPlayer player=null;
-    public static void Play(Song song){
+    static Song curSong = null;
+    public static void Play(){
         Pause();
-        curSong = new Media(GetPath(song.songId));
-        player = new MediaPlayer(curSong);
+        if(curSong!=null){
+            player.play();
+            return;
+        }
+        curSong = SongQueue.NextSong();
+        if(curSong==null) return;
+        curMedia = new Media(GetPath(curSong.songId));
+        player = new MediaPlayer(curMedia);
         player.play();
         player.setOnEndOfMedia(()->{
+            curSong=null;
             player.pause();
-            SongQueue.Play();
+            Play();
         });
     }
-    public static void Play(Path path) {
+    public static void Play(Path path) { //deprecated
         Pause();
-        curSong = new Media(path.toUri().toString());
-        player = new MediaPlayer(curSong);
+        curMedia = new Media(path.toUri().toString());
+        player = new MediaPlayer(curMedia);
         player.play();
     }
     public static void Pause() {

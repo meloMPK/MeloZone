@@ -7,7 +7,7 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
-public class GetData {
+public class GetData {//Model
     public static String FindSongId(String artist, String album, String title) throws ExecutionException, InterruptedException {
         return(String) FirebaseHandler.db.collection("Songs")
                 .whereEqualTo("Artist", artist)
@@ -24,7 +24,7 @@ public class GetData {
                 .whereEqualTo("Name", album).get().get().getDocuments().get(0).getData().get("dbId");
         return new Song(title,album,artist, songId, albumId);
     }
-    public static void FetchSample() throws ExecutionException, InterruptedException {
+    public static void FetchSample() throws ExecutionException, InterruptedException {//deprecated
         DocumentReference docRef = FirebaseHandler.db.collection("Songs").document("1");
         ApiFuture<DocumentSnapshot> future = docRef.get();
         DocumentSnapshot document = future.get();
