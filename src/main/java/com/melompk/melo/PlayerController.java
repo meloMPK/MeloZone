@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
-public class PlayerController implements Initializable {
+public class PlayerController implements Initializable {//View
 
     @FXML
     private Pane pane;
@@ -31,10 +31,12 @@ public class PlayerController implements Initializable {
     private boolean isPlaying;
 
     public void playMedia() throws ExecutionException, InterruptedException {
-        SongUtils.Play(DownloadUtils.DownloadSong(GetData.FindSongId("Jacek Kaczmarski", "Mury", "Mury")));
+        SongUtils.Play();
     }
 
-    public void pauseMedia() {}
+    public void pauseMedia() {
+        SongUtils.Pause();
+    }
 
     public void nextMedia() {}
 

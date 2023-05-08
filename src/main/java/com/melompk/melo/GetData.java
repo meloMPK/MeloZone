@@ -2,26 +2,37 @@ package com.melompk.melo;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 
-import java.util.Map;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
-public class GetData {
+public class GetData {//Model
     public static String FindSongId(String artist, String album, String title) throws ExecutionException, InterruptedException {
-        Map<String, Object> song = FirebaseHandler.db.collection("Songs")
+        return(String) FirebaseHandler.db.collection("Songs")
                 .whereEqualTo("Artist", artist)
                 .whereEqualTo("Album", album)
-                .whereEqualTo("Name", title).get().get().getDocuments().get(0).getData();
-        return song.get("dbId")+".mp3";
+                .whereEqualTo("Name", title).get().get().getDocuments().get(0).getData().get("dbId");
     }
-    public static void FetchSample() throws ExecutionException, InterruptedException {
-        DocumentReference docRef = FirebaseHandler.db.collection("Songs").document("1");
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-        DocumentSnapshot document = future.get();
-        if (document.exists()) {
-            System.out.println("Document data: " + document.getData());
-        } else {
-            System.out.println("No such document!");
+    public static Song GetSong(String artist, String album, String title) throws ExecutionException, InterruptedException {
+        String songId = (String) FirebaseHandler.db.collection("Songs")
+                .whereEqualTo("Artist", artist)
+                .whereEqualTo("Album", album)
+                .whereEqualTo("Name", title).get().get().getDocuments().get(0).getData().get("dbId");
+        String albumId = (String) FirebaseHandler.db.collection("Albums")
+                .whereEqualTo("Artist", artist)
+                .whereEqualTo("Name", album).get().get().getDocuments().get(0).getData().get("dbId");
+        return new Song(title,album,artist, songId, albumId);
+    }
+    public static LinkedList<Song> GetAllSongs() throws ExecutionException, InterruptedException {
+        LinkedList<Song> songs = new LinkedList<>();
+        for(QueryDocumentSnapshot song: FirebaseHandler.db.collection("Songs").get().get().getDocuments()){
+            String albumId = (String) FirebaseHandler.db.collection("Albums")
+                    .whereEqualTo("Artist", song.get("Artist"))
+                    .whereEqualTo("Name", song.get("Album")).get().get().getDocuments().get(0).getData().get("dbId");
+            songs.add(new Song((String) song.get("Name"),
+                    (String) song.get("Album"), (String) song.get("Artist"), (String) song.get("dbId"), albumId));
         }
+        return songs;
     }
 }
