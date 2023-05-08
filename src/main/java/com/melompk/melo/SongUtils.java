@@ -33,25 +33,5 @@ public class SongUtils {
     public static String GetPath(String id){
         return Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Songs/" + id + ".mp3").toUri().toString();
     }
-    public static void Clear(){
-        File songsDirectory = new File("src/main/resources/Songs");
-        if (songsDirectory.exists()) {
-            File[] files = songsDirectory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    file.delete();
-                }
-            }
-        }
-        File coversDirectory = new File("src/main/resources/Covers");
-        if (coversDirectory.exists()) {
-            File[] files = coversDirectory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    file.delete();
-                }
-            }
-        }
-    }
 }
 
