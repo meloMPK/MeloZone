@@ -2,6 +2,7 @@ package com.melompk.melo;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 public class SongQueue {//Model
     static LinkedList<Song> que = new LinkedList<>();
@@ -12,13 +13,13 @@ public class SongQueue {//Model
     public static void AddAll(LinkedList<Song> songs){
         que.addAll(songs);
     }
-    public static Song NextSong(){
-        if(!que.isEmpty()) {
-            curSong = que.removeFirst();
-            DownloadUtils.DownloadSong(curSong.songId);
-            DownloadUtils.DownloadCover(curSong.albumCoverID);
-            return curSong;
+    public static Song NextSong() throws ExecutionException, InterruptedException {
+        if(que.isEmpty()){
+            AddAll(GetData.GetAllSongs());
         }
-        else return null;
+        curSong = que.removeFirst();
+        DownloadUtils.DownloadSong(curSong.songId);
+        DownloadUtils.DownloadCover(curSong.albumCoverID);
+        return curSong;
     }
 }

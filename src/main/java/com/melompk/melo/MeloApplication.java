@@ -11,11 +11,9 @@ import java.util.concurrent.ExecutionException;
 public class MeloApplication extends Application {//Controller
     @Override
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
-
         FirebaseHandler.initialize();
         FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 960, 600);
-        SongQueue.AddAll(GetData.GetAllSongs());
         stage.setResizable(false);
         stage.setTitle("MeloZone");
         stage.setScene(scene);

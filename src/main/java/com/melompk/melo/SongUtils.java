@@ -5,12 +5,13 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.ExecutionException;
 
 public class SongUtils {//Controller
     static Media curMedia;
     static MediaPlayer player=null;
     static Song curSong = null;
-    public static void Play(){
+    public static void Play() throws ExecutionException, InterruptedException {
         Pause();
         if(curSong!=null){
             player.play();
@@ -24,7 +25,13 @@ public class SongUtils {//Controller
         player.setOnEndOfMedia(()->{
             curSong=null;
             player.pause();
-            Play();
+            try {
+                Play();
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
     public static void Pause() {
