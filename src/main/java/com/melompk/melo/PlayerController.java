@@ -35,15 +35,20 @@ public class PlayerController implements Initializable {//View
 
     public void playMedia() throws ExecutionException, InterruptedException {
         SongUtils.Play();
+        CoverImageUtils.refresh();
     }
 
     public void pauseMedia() {
         SongUtils.Pause();
     }
 
-    public void nextMedia() {}
+    public void nextMedia() {
+        CoverImageUtils.refresh();
+    }
 
-    public void prevMedia() {}
+    public void prevMedia() {
+        CoverImageUtils.refresh();
+    }
 
     public void resetMedia() {}
 

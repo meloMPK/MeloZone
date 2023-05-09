@@ -12,11 +12,21 @@ public class CoverImageUtils {
     static ImageView imageView;
 
     public static void init(ImageView imv) {
-        // String path = Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/cover.jpg").toUri().toString();
-        String path = Paths.get(new File("").getAbsolutePath() + "/cover.jpg").toUri().toString();
-
-        image = new Image(path);
         imageView = imv;
-        imv.setImage(image);
+        refresh();
+    }
+
+    public static void refresh() {
+        if(SongUtils.curSong!=null){
+            albumCoverID = SongUtils.curSong.albumCoverID;
+            DownloadUtils.DownloadCover(albumCoverID);
+            image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ albumCoverID + ".jpg").toUri().toString());
+        }
+        else {
+            image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/default.jpg").toUri().toString());
+        }
+        imageView.setImage(image);
+        imageView.setFitHeight(225);
+        imageView.setFitWidth(225);
     }
 }
