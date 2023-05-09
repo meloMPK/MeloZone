@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
 
 <AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.melo.PlayerController">
     <children>
@@ -15,6 +16,8 @@
                 <Font name="Arial Bold" size="55.0" />
             </font>
         </Label>
+        <ImageView fx:id="coverImage" layoutX="256.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true" >
+        </ImageView>
         <Button fx:id="playButton" layoutX="266.0" layoutY="506.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
         <Button fx:id="pauseButton" layoutX="389.0" layoutY="506.0" mnemonicParsing="false" onAction="#pauseMedia" prefHeight="64.0" prefWidth="109.0" text="PAUSE" />
         <Button fx:id="resetButton" layoutX="511.0" layoutY="506.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="109.0" text="RESET" />

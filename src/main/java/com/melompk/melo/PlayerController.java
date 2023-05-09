@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +26,8 @@ public class PlayerController implements Initializable {//View
     private Slider volumeSlider;
     @FXML
     private ProgressBar songProgressBar;
+    @FXML
+    private ImageView coverImage;
 
     private Timer timer;
     private TimerTask task;
@@ -51,6 +54,6 @@ public class PlayerController implements Initializable {//View
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        CoverImageUtils.init(coverImage);
     }
 }
