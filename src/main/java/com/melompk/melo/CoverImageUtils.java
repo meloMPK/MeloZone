@@ -20,7 +20,12 @@ public class CoverImageUtils {
         if(SongUtils.curSong!=null){
             albumCoverID = SongUtils.curSong.albumCoverID;
             DownloadUtils.DownloadCover(albumCoverID);
-            image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ albumCoverID + ".jpg").toUri().toString());
+            if(DownloadUtils.IsCoverDownloaded(albumCoverID+".jpg")) {
+                image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ albumCoverID + ".jpg").toUri().toString());
+            }
+            else {
+                image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/default.jpg").toUri().toString());
+            }
         }
         else {
             image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/default.jpg").toUri().toString());
