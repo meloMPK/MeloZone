@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,9 @@ public class PlayerController implements Initializable {//View
     private Slider volumeSlider;
     @FXML
     private ProgressBar songProgressBar;
+    @FXML
+    private ImageView coverImage;
+
     private Timer timer;
     private TimerTask task;
     private boolean isPlaying = false;
@@ -44,6 +48,7 @@ public class PlayerController implements Initializable {//View
 
     private void playSong() throws ExecutionException, InterruptedException {
         SongUtils.Play();
+        CoverImageUtils.refresh();
         SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
         SongUtils.player.setOnEndOfMedia(()-> {
             try {
@@ -73,7 +78,7 @@ public class PlayerController implements Initializable {//View
     public void nextMedia() throws ExecutionException, InterruptedException {
         SongUtils.Pause();
         SongUtils.NextSong();
-
+        CoverImageUtils.refresh();
         cancelTimer();
         if (isPlaying) {
             playSong();
@@ -82,11 +87,10 @@ public class PlayerController implements Initializable {//View
 
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
-
     public void prevMedia() throws ExecutionException, InterruptedException {
         SongUtils.Pause();
         SongUtils.PrevSong();
-
+        CoverImageUtils.refresh();
         cancelTimer();
         if (isPlaying) {
             playSong();
@@ -120,6 +124,9 @@ public class PlayerController implements Initializable {//View
         timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        CoverImageUtils.init(coverImage);
     private void cancelTimer() {
         songProgressBar.setProgress(0);
         timer.cancel();
