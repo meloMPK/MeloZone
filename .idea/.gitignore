@@ -6,10 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-src/main/java/resources/Covers/
-src/main/java/resources/Songs/
 # Ignore compilation junk
 target/
 # Ignore downloaded songs and covers
-src/resources/Songs
-src/resources/Covers
+src/main/java/resources/Covers/
+src/main/java/resources/Songs/
