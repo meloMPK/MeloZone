@@ -12,27 +12,13 @@ public class SongUtils {//Controller
     static MediaPlayer player=null;
     static Song curSong = null;
     public static void Play() throws ExecutionException, InterruptedException {
-        Pause();
+        //Pause();
         if(curSong!=null){
             player.play();
             return;
         }
-        curSong = SongQueue.NextSong();
+        NextSong();
         if(curSong==null) return;
-        curMedia = new Media(GetPath(curSong.songId));
-        player = new MediaPlayer(curMedia);
-        player.play();
-        player.setOnEndOfMedia(()->{
-            curSong=null;
-            player.pause();
-            try {
-                Play();
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
     public static void Pause() {
         if(player!=null){
@@ -41,6 +27,24 @@ public class SongUtils {//Controller
     }
     public static String GetPath(String id){
         return Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Songs/" + id + ".mp3").toUri().toString();
+    }
+
+    public static Song getCurrentSong() {
+        return curSong;
+    }
+
+    public static void NextSong() throws ExecutionException, InterruptedException {
+        curSong = SongQueue.NextSong();
+        curMedia = new Media(GetPath(curSong.songId));
+        player = new MediaPlayer(curMedia);
+        player.play();
+    }
+
+    public static void PrevSong() throws ExecutionException, InterruptedException {
+        curSong = SongQueue.PrevSong();
+        curMedia = new Media(GetPath(curSong.songId));
+        player = new MediaPlayer(curMedia);
+        player.play();
     }
 }
 

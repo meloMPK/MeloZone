@@ -13,4 +13,6 @@ public class Song {
         this.songId=songId;
         this.albumCoverID=albumCoverId;
     }
+
+    // TODO: Write comparator pls
 }
