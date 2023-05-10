@@ -1,5 +1,7 @@
 package com.melompk.melo;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,7 +23,7 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Label songLabel;
     @FXML
-    private Button playButton, pauseButton, resetButton, previousButton, nextButton;
+    private Button playButton, resetButton, previousButton, nextButton;
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -31,34 +33,106 @@ public class PlayerController implements Initializable {//View
 
     private Timer timer;
     private TimerTask task;
-    private boolean isPlaying;
+    private boolean isPlaying = false;
+    String[] playAndStop = {"PLAY", "STOP"};
 
-    public void playMedia() throws ExecutionException, InterruptedException {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+            }
+        });
+    }
+
+    private void playSong() throws ExecutionException, InterruptedException {
         SongUtils.Play();
         CoverImageUtils.refresh();
+        SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+        SongUtils.player.setOnEndOfMedia(()-> {
+            try {
+                this.nextMedia();
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        beginTimer();
     }
 
-    public void pauseMedia() {
+    public void playMedia() throws ExecutionException, InterruptedException {
+        if (!isPlaying) {
+            playSong();
+        } else {
+            pauseTimer();
+            SongUtils.Pause();
+        }
+
+        isPlaying = !isPlaying;
+        playButton.setText(playAndStop[isPlaying ? 1 : 0]);
+        songLabel.setText(SongUtils.getCurrentSong().title);
+    }
+
+    public void nextMedia() throws ExecutionException, InterruptedException {
         SongUtils.Pause();
-    }
-
-    public void nextMedia() {
+        SongUtils.NextSong();
         CoverImageUtils.refresh();
-    }
+        cancelTimer();
+        if (isPlaying) {
+            playSong();
+            beginTimer();
+        }
 
-    public void prevMedia() {
+        songLabel.setText(SongUtils.getCurrentSong().title);
+    }
+    public void prevMedia() throws ExecutionException, InterruptedException {
+        SongUtils.Pause();
+        SongUtils.PrevSong();
         CoverImageUtils.refresh();
+        cancelTimer();
+        if (isPlaying) {
+            playSong();
+            beginTimer();
+        }
+
+        songLabel.setText(SongUtils.getCurrentSong().title);
     }
 
-    public void resetMedia() {}
+    public void resetMedia() {
+        songProgressBar.setProgress(0);
+        SongUtils.Pause();
+        songLabel.setText("SONGS DELETED");
+        DownloadUtils.Clear();
+    }
 
-    public void beginTimer() {}
+    private void beginTimer() {
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                isPlaying = true;
+                double current = SongUtils.player.getCurrentTime().toSeconds();
+                double end = SongUtils.curMedia.getDuration().toSeconds();
+                songProgressBar.setProgress(current/end);
 
-    public void cancelTimer() {}
+                if (current/end == 1) cancelTimer();
+            }
+        };
 
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CoverImageUtils.init(coverImage);
+    private void cancelTimer() {
+        songProgressBar.setProgress(0);
+        timer.cancel();
+    }
+
+    private void pauseTimer() {
+        timer.cancel();
     }
 }
