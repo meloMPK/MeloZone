@@ -44,6 +44,7 @@ public class PlayerController implements Initializable {//View
                 SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
+        CoverImageUtils.init(coverImage);
     }
 
     private void playSong() throws ExecutionException, InterruptedException {
@@ -124,9 +125,6 @@ public class PlayerController implements Initializable {//View
         timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        CoverImageUtils.init(coverImage);
     private void cancelTimer() {
         songProgressBar.setProgress(0);
         timer.cancel();

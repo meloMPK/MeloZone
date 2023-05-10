@@ -16,7 +16,7 @@
                 <Font name="Arial Bold" size="55.0" />
             </font>
         </Label>
-        <ImageView fx:id="coverImage" layoutX="367.5" layoutY="100.0" pickOnBounds="true" preserveRatio="true" >
+        <ImageView fx:id="coverImage" layoutX="367.5" layoutY="100.0" pickOnBounds="true" preserveRatio="true" ></ImageView>
         <Button fx:id="playButton" layoutX="426.0" layoutY="506.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
         <Button fx:id="resetButton" layoutX="46.0" layoutY="499.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="109.0" text="RESET" />
         <Button fx:id="prevButton" layoutX="304.0" layoutY="506.0" mnemonicParsing="false" onAction="#prevMedia" prefHeight="64.0" prefWidth="109.0" text="PREV" />
