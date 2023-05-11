@@ -1,5 +1,6 @@
 package com.melompk.melo;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.ExecutionException;
@@ -16,7 +17,7 @@ public class SongQueue {//Model
         que.addAll(songs);
     }
 
-    public static Song NextSong() throws ExecutionException, InterruptedException {
+    public static Song NextSong() throws ExecutionException, InterruptedException, IOException {
         if(que.isEmpty()){
             AddAll(GetData.GetAllSongs());
             resetIterator();
@@ -28,7 +29,7 @@ public class SongQueue {//Model
         return curSong;
     }
 
-    public static Song PrevSong() throws ExecutionException, InterruptedException {
+    public static Song PrevSong() throws ExecutionException, InterruptedException, IOException {
         if (playHistory.isEmpty()) return curSong;
         else {
             curSong = playHistory.getFirst();

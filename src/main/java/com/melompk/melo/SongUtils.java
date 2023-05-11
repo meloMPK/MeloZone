@@ -3,6 +3,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
@@ -11,7 +12,7 @@ public class SongUtils {//Controller
     static Media curMedia;
     static MediaPlayer player=null;
     static Song curSong = null;
-    public static void Play() throws ExecutionException, InterruptedException {
+    public static void Play() throws ExecutionException, InterruptedException, IOException {
         //Pause();
         if(curSong!=null){
             player.play();
@@ -33,14 +34,14 @@ public class SongUtils {//Controller
         return curSong;
     }
 
-    public static void NextSong() throws ExecutionException, InterruptedException {
+    public static void NextSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.NextSong();
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);
         player.play();
     }
 
-    public static void PrevSong() throws ExecutionException, InterruptedException {
+    public static void PrevSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.PrevSong();
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);

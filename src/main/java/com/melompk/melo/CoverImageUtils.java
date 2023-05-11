@@ -1,6 +1,7 @@
 package com.melompk.melo;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import javafx.scene.image.Image;
@@ -11,12 +12,12 @@ public class CoverImageUtils {
     static String albumCoverID;
     static ImageView imageView;
 
-    public static void init(ImageView imv) {
+    public static void init(ImageView imv) throws IOException {
         imageView = imv;
         refresh();
     }
 
-    public static void refresh() {
+    public static void refresh() throws IOException {
         if(SongUtils.curSong!=null){
             albumCoverID = SongUtils.curSong.albumCoverID;
             DownloadUtils.DownloadCover(albumCoverID);

@@ -21,9 +21,16 @@ public class MeloApplication extends Application {//Controller
 
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
-            DownloadUtils.Clear();
+            try {
+                DownloadUtils.Clear();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             Platform.exit();
             System.exit(0);
+
+
+
         });
     }
 
