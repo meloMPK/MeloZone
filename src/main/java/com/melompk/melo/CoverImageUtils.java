@@ -25,11 +25,11 @@ public class CoverImageUtils {
                 image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ albumCoverID + ".jpg").toUri().toString());
             }
             else {
-                image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/default.jpg").toUri().toString());
+                image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString());
             }
         }
         else {
-            image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/default.jpg").toUri().toString());
+            image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString());
         }
         imageView.setImage(image);
         imageView.setFitHeight(225);

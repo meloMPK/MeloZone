@@ -21,7 +21,7 @@ public class FirebaseHandler {//Model
     public static Storage storage;
     public static void initialize() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream(new File("").getAbsolutePath() + "/src/main/resources/Database/melozone-7db34-firebase-adminsdk-kuyso-b2b06fbe51.json");
+                new FileInputStream(new File("").getAbsolutePath() + "/src/main/resources/Utilities/melozone-7db34-firebase-adminsdk-kuyso-b2b06fbe51.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

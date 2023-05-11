@@ -50,7 +50,7 @@ public class DownloadUtils {//Model
         File[] files = coversDirectory.listFiles();
         if (files != null) {
             for (File file : files) {
-                if(!file.getName().equals("default.jpg")) file.delete();
+                file.delete();
             }
         }
     }
