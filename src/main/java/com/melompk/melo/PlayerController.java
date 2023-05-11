@@ -10,6 +10,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -44,10 +46,14 @@ public class PlayerController implements Initializable {//View
                 SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
-        CoverImageUtils.init(coverImage);
+        try {
+            CoverImageUtils.init(coverImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void playSong() throws ExecutionException, InterruptedException {
+    private void playSong() throws ExecutionException, InterruptedException, IOException {
         SongUtils.Play();
         CoverImageUtils.refresh();
         SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
@@ -58,12 +64,14 @@ public class PlayerController implements Initializable {//View
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         beginTimer();
     }
 
-    public void playMedia() throws ExecutionException, InterruptedException {
+    public void playMedia() throws ExecutionException, InterruptedException, IOException {
         if (!isPlaying) {
             playSong();
         } else {
@@ -76,7 +84,7 @@ public class PlayerController implements Initializable {//View
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
 
-    public void nextMedia() throws ExecutionException, InterruptedException {
+    public void nextMedia() throws ExecutionException, InterruptedException, IOException {
         SongUtils.Pause();
         SongUtils.NextSong();
         CoverImageUtils.refresh();
@@ -85,7 +93,7 @@ public class PlayerController implements Initializable {//View
 
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
-    public void prevMedia() throws ExecutionException, InterruptedException {
+    public void prevMedia() throws ExecutionException, InterruptedException, IOException {
         SongUtils.Pause();
         SongUtils.PrevSong();
         CoverImageUtils.refresh();
@@ -95,7 +103,7 @@ public class PlayerController implements Initializable {//View
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
 
-    public void resetMedia() {
+    public void resetMedia() throws IOException {
         songProgressBar.setProgress(0);
         SongUtils.Pause();
         songLabel.setText("SONGS DELETED");
