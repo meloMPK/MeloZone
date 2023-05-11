@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -90,8 +91,12 @@ public class PlayerController implements Initializable {//View
         CoverImageUtils.refresh();
         cancelTimer();
         if (isPlaying) playSong();
-
-        songLabel.setText(SongUtils.getCurrentSong().title);
+        if(SongUtils.curSong!=null)songLabel.setText(SongUtils.getCurrentSong().title);
+        else{
+            songLabel.setText("Melozone");
+            cancelTimer();
+            songProgressBar.setProgress(0);
+        }
     }
     public void prevMedia() throws ExecutionException, InterruptedException, IOException {
         SongUtils.Pause();
@@ -99,14 +104,18 @@ public class PlayerController implements Initializable {//View
         CoverImageUtils.refresh();
         cancelTimer();
         if (isPlaying) playSong();
-
-        songLabel.setText(SongUtils.getCurrentSong().title);
+        if(SongUtils.curSong!=null)songLabel.setText(SongUtils.getCurrentSong().title);
+        else{
+            songLabel.setText("Melozone");
+            cancelTimer();
+            songProgressBar.setProgress(0);
+        }
     }
 
     public void resetMedia() throws IOException {
         songProgressBar.setProgress(0);
         SongUtils.Pause();
-        songLabel.setText("SONGS DELETED");
+        songLabel.setText("Melozone");
         DownloadUtils.Clear();
     }
 

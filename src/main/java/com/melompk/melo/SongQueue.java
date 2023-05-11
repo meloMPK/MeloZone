@@ -1,14 +1,16 @@
 package com.melompk.melo;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 
 public class SongQueue {//Model
-    static LinkedList<Song> que = new LinkedList<>();
+    static ConcurrentLinkedDeque<Song> que = new ConcurrentLinkedDeque<>();
     static LinkedList<Song> playHistory = new LinkedList<>();
-    static ListIterator<Song> queIterator = que.listIterator();
     static Song curSong = null;
     public static void Add(Song song){
         que.add(song);
@@ -18,12 +20,15 @@ public class SongQueue {//Model
     }
 
     public static Song NextSong() throws ExecutionException, InterruptedException, IOException {
-        if(que.isEmpty()){
+        if(que.isEmpty() && playHistory.isEmpty()){
             AddAll(GetData.GetAllSongs());
-            resetIterator();
         }
-        curSong = queIterator.hasNext() ? queIterator.next() : curSong;
-        playHistory.addFirst(curSong);
+        if(que.isEmpty()){
+            curSong=null;
+            return null;
+        }
+        if(curSong!=null)playHistory.addFirst(curSong);
+        curSong = que.poll();
         DownloadUtils.DownloadSong(curSong.songId);
         DownloadUtils.DownloadCover(curSong.albumCoverID);
         return curSong;
@@ -32,19 +37,15 @@ public class SongQueue {//Model
     public static Song PrevSong() throws ExecutionException, InterruptedException, IOException {
         if (playHistory.isEmpty()) return curSong;
         else {
+            if(curSong!=null){
+                que.addFirst(curSong);
+            }
             curSong = playHistory.getFirst();
-            //if (queIterator.hasPrevious()) queIterator.previous();
             playHistory.removeFirst();
             playHistory.add(curSong);
         }
-
         DownloadUtils.DownloadSong(curSong.songId);
         DownloadUtils.DownloadCover(curSong.albumCoverID);
         return curSong;
-    }
-
-    private static ListIterator<Song> resetIterator() {
-        queIterator = que.listIterator();
-        return queIterator;
     }
 }

@@ -18,7 +18,6 @@ public class MeloApplication extends Application {//Controller
         stage.setTitle("MeloZone");
         stage.setScene(scene);
         stage.show();
-
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
             try {
