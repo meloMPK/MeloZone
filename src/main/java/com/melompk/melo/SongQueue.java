@@ -32,6 +32,7 @@ public class SongQueue {//Model
         if (playHistory.isEmpty()) return curSong;
         else {
             curSong = playHistory.getFirst();
+            //if (queIterator.hasPrevious()) queIterator.previous();
             playHistory.removeFirst();
             playHistory.add(curSong);
         }

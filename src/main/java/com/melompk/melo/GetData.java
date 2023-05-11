@@ -28,8 +28,7 @@ public class GetData {//Model
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song: FirebaseHandler.db.collection("Songs").get().get().getDocuments()){
             String albumId = (String) FirebaseHandler.db.collection("Albums")
-                    .whereEqualTo("Artist", song.get("Artist"))
-                    .whereEqualTo("Name", song.get("Album")).get().get().getDocuments().get(0).getData().get("dbId");
+                    .whereEqualTo("dbId", song.get("AlbumId")).get().get().getDocuments().get(0).getData().get("dbId");
             songs.add(new Song((String) song.get("Name"),
                     (String) song.get("Album"), (String) song.get("Artist"), (String) song.get("dbId"), albumId));
         }

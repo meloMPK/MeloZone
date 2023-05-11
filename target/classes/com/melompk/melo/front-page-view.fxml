@@ -4,19 +4,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
 
 <AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.melo.PlayerController">
     <children>
         <ProgressBar fx:id="songProgressBar" layoutX="46.0" layoutY="447.0" prefHeight="18.0" prefWidth="847.0" progress="0.0" />
-        <Label fx:id="songLabel" alignment="CENTER" layoutY="328.0" prefHeight="64.0" prefWidth="960.0" text="Song Label" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="songLabel" alignment="CENTER" layoutX="1.0" layoutY="360.0" prefHeight="64.0" prefWidth="960.0" text="Song Label" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial Bold" size="55.0" />
             </font>
         </Label>
-        <ImageView fx:id="coverImage" layoutX="367.5" layoutY="100.0" pickOnBounds="true" preserveRatio="true" ></ImageView>
+        <ImageView fx:id="coverImage" layoutX="367.5" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
         <Button fx:id="playButton" layoutX="426.0" layoutY="506.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
         <Button fx:id="resetButton" layoutX="46.0" layoutY="499.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="109.0" text="RESET" />
         <Button fx:id="prevButton" layoutX="304.0" layoutY="506.0" mnemonicParsing="false" onAction="#prevMedia" prefHeight="64.0" prefWidth="109.0" text="PREV" />

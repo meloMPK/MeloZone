@@ -81,10 +81,7 @@ public class PlayerController implements Initializable {//View
         SongUtils.NextSong();
         CoverImageUtils.refresh();
         cancelTimer();
-        if (isPlaying) {
-            playSong();
-            beginTimer();
-        }
+        if (isPlaying) playSong();
 
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
@@ -93,10 +90,7 @@ public class PlayerController implements Initializable {//View
         SongUtils.PrevSong();
         CoverImageUtils.refresh();
         cancelTimer();
-        if (isPlaying) {
-            playSong();
-            beginTimer();
-        }
+        if (isPlaying) playSong();
 
         songLabel.setText(SongUtils.getCurrentSong().title);
     }
