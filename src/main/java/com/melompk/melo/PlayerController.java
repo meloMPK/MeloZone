@@ -61,6 +61,7 @@ public class PlayerController implements Initializable {//View
         SongUtils.player.setOnEndOfMedia(()-> {
             try {
                 this.nextMedia();
+                SongUtils.Play();
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -138,10 +139,12 @@ public class PlayerController implements Initializable {//View
 
     private void cancelTimer() {
         songProgressBar.setProgress(0);
+        if(timer==null) return;
         timer.cancel();
     }
 
     private void pauseTimer() {
+        if(timer==null) return;
         timer.cancel();
     }
 }
