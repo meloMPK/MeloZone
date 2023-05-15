@@ -20,6 +20,7 @@ public class SongUtils {//Controller
         }
         NextSong();
         if(curSong==null) return;
+        player.play();
     }
     public static void Pause() {
         if(player!=null){
