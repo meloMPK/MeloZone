@@ -18,6 +18,7 @@ public class MeloApplication extends Application {//Controller
         stage.setTitle("MeloZone");
         stage.setScene(scene);
         stage.show();
+        SongQueue.AddAll(GetData.GetAllSongs()); //Remove when adding songs to queue is done
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
             try {
