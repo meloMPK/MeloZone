@@ -9,9 +9,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 
 public class SongQueue {//Model
-    static ConcurrentLinkedDeque<Song> que = new ConcurrentLinkedDeque<>();
-    static LinkedList<Song> playHistory = new LinkedList<>();
-    // static Song curSong = null;
+    static ConcurrentLinkedDeque<Song> que;
+    static LinkedList<Song> playHistory;
+    
     public static void Add(Song song){
         que.add(song);
     }
@@ -19,12 +19,14 @@ public class SongQueue {//Model
         que.addAll(songs);
     }
 
+    public static void Init() throws NumberFormatException, ExecutionException, InterruptedException {
+        que = new ConcurrentLinkedDeque<>();
+        playHistory = new LinkedList<>();
+        SongQueue.AddAll(GetData.GetAllSongs());
+    }
+
     public static Song NextSong() throws ExecutionException, InterruptedException, IOException {
-        // if(que.isEmpty() && playHistory.isEmpty()){
-        //     AddAll(GetData.GetAllSongs());
-        // }
         if(que.isEmpty()){
-            // curSong=null;
             return null;
         }
         if(SongUtils.curSong!=null)playHistory.addFirst(SongUtils.curSong);
