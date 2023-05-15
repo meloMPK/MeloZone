@@ -61,6 +61,7 @@ public class PlayerController implements Initializable {//View
         SongUtils.player.setOnEndOfMedia(()-> {
             try {
                 this.nextMedia();
+                SongUtils.Play();
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -80,6 +81,13 @@ public class PlayerController implements Initializable {//View
             SongUtils.Pause();
         }
 
+        if(SongUtils.curSong==null) {
+            isPlaying = false;
+            playButton.setText(playAndStop[isPlaying ? 1 : 0]);
+            songLabel.setText("Melozone");
+            return;
+        }
+
         isPlaying = !isPlaying;
         playButton.setText(playAndStop[isPlaying ? 1 : 0]);
         songLabel.setText(SongUtils.getCurrentSong().title);
@@ -90,12 +98,16 @@ public class PlayerController implements Initializable {//View
         SongUtils.NextSong();
         CoverImageUtils.refresh();
         cancelTimer();
-        if (isPlaying) playSong();
-        if(SongUtils.curSong!=null)songLabel.setText(SongUtils.getCurrentSong().title);
+        if(SongUtils.curSong!=null) {
+            songLabel.setText(SongUtils.getCurrentSong().title);
+            if (isPlaying) playSong();
+        }
         else{
             songLabel.setText("Melozone");
             cancelTimer();
             songProgressBar.setProgress(0);
+            isPlaying = false;
+            playButton.setText(playAndStop[isPlaying ? 1 : 0]);
         }
     }
     public void prevMedia() throws ExecutionException, InterruptedException, IOException {
@@ -138,10 +150,12 @@ public class PlayerController implements Initializable {//View
 
     private void cancelTimer() {
         songProgressBar.setProgress(0);
+        if(timer==null) return;
         timer.cancel();
     }
 
     private void pauseTimer() {
+        if(timer==null) return;
         timer.cancel();
     }
 }
