@@ -42,7 +42,6 @@ public class SongQueue {//Model
             }
             curSong = playHistory.getFirst();
             playHistory.removeFirst();
-            playHistory.add(curSong);
         }
         DownloadUtils.DownloadSong(curSong.songId);
         DownloadUtils.DownloadCover(curSong.albumCoverID);
