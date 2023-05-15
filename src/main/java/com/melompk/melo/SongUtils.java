@@ -45,6 +45,7 @@ public class SongUtils {//Controller
 
     public static void PrevSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.PrevSong();
+        if(curSong==null)return;
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);
         // player.play();
