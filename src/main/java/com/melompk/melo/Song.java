@@ -6,13 +6,13 @@ public class Song {
     public String artist;
     public String songId;
     public String albumCoverID;
-    Song(String title, String album, String artist, String songId, String albumCoverId){
+    public int intID;
+    Song(String title, String album, String artist, String songId, String albumCoverId) throws NumberFormatException{
         this.title=title;
         this.album=album;
         this.artist=artist;
         this.songId=songId;
         this.albumCoverID=albumCoverId;
+        this.intID = Integer.parseInt(songId);
     }
-
-    // TODO: Write comparator pls
 }

@@ -14,7 +14,7 @@ public class GetData {//Model
                 .whereEqualTo("Album", album)
                 .whereEqualTo("Name", title).get().get().getDocuments().get(0).getData().get("dbId");
     }
-    public static Song GetSong(String artist, String album, String title) throws ExecutionException, InterruptedException {
+    public static Song GetSong(String artist, String album, String title) throws ExecutionException, InterruptedException, NumberFormatException {
         String songId = (String) FirebaseHandler.db.collection("Songs")
                 .whereEqualTo("Artist", artist)
                 .whereEqualTo("Album", album)
@@ -24,7 +24,7 @@ public class GetData {//Model
                 .whereEqualTo("Name", album).get().get().getDocuments().get(0).getData().get("dbId");
         return new Song(title,album,artist, songId, albumId);
     }
-    public static LinkedList<Song> GetAllSongs() throws ExecutionException, InterruptedException {
+    public static LinkedList<Song> GetAllSongs() throws ExecutionException, InterruptedException, NumberFormatException {
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song: FirebaseHandler.db.collection("Songs").get().get().getDocuments()){
             String albumId = (String) FirebaseHandler.db.collection("Albums")
