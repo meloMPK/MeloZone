@@ -1,6 +1,6 @@
 package com.melompk.melo;
 
-public class Song {
+public class Song implements Comparable<Song>{
     public String title;
     public String album;
     public String artist;
@@ -14,5 +14,9 @@ public class Song {
         this.songId=songId;
         this.albumCoverID=albumCoverId;
         this.intID = Integer.parseInt(songId);
+    }
+    @Override
+    public int compareTo(Song arg0) {
+        return Integer.compare(intID, arg0.intID);
     }
 }
