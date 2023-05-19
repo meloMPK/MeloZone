@@ -2,11 +2,11 @@ package com.melompk.melo;
 
 public class Album {
     public String title;
-    public String artist;
-    public String dbId;
-    Album(String title, String artist, String dbId){
+    public String artistId;
+    public String albumId;
+    Album(String title, String artistId, String albumId){
         this.title=title;
-        this.artist=artist;
-        this.dbId=dbId;
+        this.artistId=artistId;
+        this.albumId=albumId;
     }
 }

@@ -32,7 +32,7 @@ public class SongQueue {//Model
         if(SongUtils.curSong!=null)playHistory.addFirst(SongUtils.curSong);
         Song out = que.poll();
         DownloadUtils.DownloadSong(out.songId);
-        DownloadUtils.DownloadCover(out.albumCoverID);
+        DownloadUtils.DownloadCover(out.albumId);
         return out;
     }
 
@@ -44,7 +44,7 @@ public class SongQueue {//Model
         Song out = playHistory.getFirst();
         playHistory.removeFirst();
         DownloadUtils.DownloadSong(out.songId);
-        DownloadUtils.DownloadCover(out.albumCoverID);
+        DownloadUtils.DownloadCover(out.albumId);
         return out;
     }
 }

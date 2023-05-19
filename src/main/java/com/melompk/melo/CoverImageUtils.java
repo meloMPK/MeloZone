@@ -19,7 +19,7 @@ public class CoverImageUtils {
 
     public static void refresh() throws IOException {
         if(SongUtils.curSong!=null){
-            albumCoverID = SongUtils.curSong.albumCoverID;
+            albumCoverID = SongUtils.curSong.albumId;
             DownloadUtils.DownloadCover(albumCoverID);
             if(DownloadUtils.IsCoverDownloaded(albumCoverID+".jpg")) {
                 image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ albumCoverID + ".jpg").toUri().toString());
