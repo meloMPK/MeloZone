@@ -1,22 +1,19 @@
 package com.melompk.melo;
 
-public class Song implements Comparable<Song>{
+public class Song implements MediaInfo{
     public String title;
-    public String album;
-    public String artist;
+    public String albumId;
+    public String artistId;
     public String songId;
-    public String albumCoverID;
-    public int intID;
-    Song(String title, String album, String artist, String songId, String albumCoverId) throws NumberFormatException{
+    Song(String title, String albumId, String artistId, String songId) throws NumberFormatException{
         this.title=title;
-        this.album=album;
-        this.artist=artist;
+        this.albumId=albumId;
+        this.artistId=artistId;
         this.songId=songId;
-        this.albumCoverID=albumCoverId;
-        this.intID = Integer.parseInt(songId);
     }
     @Override
-    public int compareTo(Song arg0) {
-        return Integer.compare(intID, arg0.intID);
+    public int compareTo(MediaInfo other) {
+        if(!(other instanceof Song)) return 0;
+        return CharSequence.compare(songId, ((Song) other).songId);
     }
 }
