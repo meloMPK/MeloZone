@@ -1,6 +1,6 @@
 package com.melompk.melo;
 
-public class Song implements Comparable<Song>{
+public class Song implements MediaInfo{
     public String title;
     public String albumId;
     public String artistId;
@@ -12,7 +12,8 @@ public class Song implements Comparable<Song>{
         this.songId=songId;
     }
     @Override
-    public int compareTo(Song arg0) {
-        return CharSequence.compare(songId, arg0.songId);
+    public int compareTo(MediaInfo other) {
+        if(!(other instanceof Song)) return 0;
+        return CharSequence.compare(songId, ((Song) other).songId);
     }
 }
