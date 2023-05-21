@@ -24,9 +24,7 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Pane pane;
     @FXML
-    private Label songLabel;
-    @FXML
-    private Button playButton, resetButton, previousButton, nextButton;
+    private Button playButton, resetButton, prevButton, nextButton;
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -34,10 +32,15 @@ public class PlayerController implements Initializable {//View
     @FXML
     private ImageView coverImage;
 
+    static Label songLabel;
     private Timer timer;
     private TimerTask task;
     private boolean isPlaying = false;
     String[] playAndStop = {"PLAY", "STOP"};
+
+    public static void assignSongLabel(Label label) {
+        songLabel = label;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,11 +50,6 @@ public class PlayerController implements Initializable {//View
                 SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
-        try {
-            CoverImageUtils.init(coverImage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void playSong() throws ExecutionException, InterruptedException, IOException {
@@ -116,7 +114,7 @@ public class PlayerController implements Initializable {//View
         CoverImageUtils.refresh();
         cancelTimer();
         if (isPlaying) playSong();
-        if(SongUtils.curSong!=null)songLabel.setText(SongUtils.getCurrentSong().title);
+        if (SongUtils.curSong!=null) songLabel.setText(SongUtils.getCurrentSong().title);
         else{
             songLabel.setText("Melozone");
             cancelTimer();
