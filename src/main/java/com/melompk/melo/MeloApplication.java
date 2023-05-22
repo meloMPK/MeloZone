@@ -19,6 +19,13 @@ public class MeloApplication extends Application {//Controller
         stage.setTitle("MeloZone");
         stage.setScene(scene);
         stage.show();
+
+        FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
+        Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
+        Stage secondStage = new Stage();
+        secondStage.setScene(sceneAlt);
+        secondStage.show();
+
         SongQueue.Init();
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
