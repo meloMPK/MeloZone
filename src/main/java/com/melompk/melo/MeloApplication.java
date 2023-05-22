@@ -14,7 +14,7 @@ public class MeloApplication extends Application {//Controller
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
         FirebaseHandler.initialize();
         FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 960, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1045, 800);
         stage.setResizable(false);
         stage.setTitle("MeloZone");
         stage.setScene(scene);

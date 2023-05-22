@@ -32,7 +32,7 @@ public class CoverImageUtils {
             image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString());
         }
         imageView.setImage(image);
-        imageView.setFitHeight(225);
-        imageView.setFitWidth(225);
+        imageView.setFitHeight(387);
+        imageView.setFitWidth(387);
     }
 }
