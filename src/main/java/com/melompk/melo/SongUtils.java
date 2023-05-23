@@ -1,4 +1,5 @@
 package com.melompk.melo;
+import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -12,20 +13,24 @@ public class SongUtils {//Controller
     static Media curMedia;
     static MediaPlayer player=null;
     static Song curSong = null;
+    static boolean isPlaying=false;
     public static void Play() throws ExecutionException, InterruptedException, IOException {
         //Pause();
         if(curSong!=null){
             player.play();
+            isPlaying=true;
             return;
         }
         NextSong();
         if(curSong==null) return;
+        isPlaying=true;
         player.play();
     }
     public static void Pause() {
         if(player!=null){
             player.pause();
         }
+        isPlaying=false;
     }
     public static String GetPath(String id){
         return Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Songs/" + id + ".mp3").toUri().toString();

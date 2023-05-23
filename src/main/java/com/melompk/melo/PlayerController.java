@@ -2,6 +2,8 @@ package com.melompk.melo;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,21 +31,17 @@ public class PlayerController implements Initializable {//View
     private Slider volumeSlider;
     @FXML
     private ProgressBar songProgressBar;
-    @FXML
-    private ImageView coverImage;
-
-    static Label songLabel;
+    public Label songLabel;
     private Timer timer;
     private TimerTask task;
     private boolean isPlaying = false;
     String[] playAndStop = {"PLAY", "STOP"};
-
-    public static void assignSongLabel(Label label) {
-        songLabel = label;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        EventHandlers.AddPlayerController(this);
+        nextButton.setOnAction(EventHandlers.Next);
+        playButton.setOnAction(EventHandlers.Play);
+        prevButton.setOnAction(EventHandlers.Prev);
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -51,77 +49,12 @@ public class PlayerController implements Initializable {//View
             }
         });
     }
-
-    private void playSong() throws ExecutionException, InterruptedException, IOException {
-        SongUtils.Play();
-        CoverImageUtils.refresh();
-        SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
-        SongUtils.player.setOnEndOfMedia(()-> {
-            try {
-                this.nextMedia();
-                SongUtils.Play();
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        beginTimer();
-    }
-
-    public void playMedia() throws ExecutionException, InterruptedException, IOException {
-        if (!isPlaying) {
-            playSong();
-        } else {
-            pauseTimer();
-            SongUtils.Pause();
-        }
-
-        if(SongUtils.curSong==null) {
-            isPlaying = false;
-            playButton.setText(playAndStop[isPlaying ? 1 : 0]);
-            songLabel.setText("Melozone");
-            return;
-        }
-
-        isPlaying = !isPlaying;
+    public void refresh(){
+        isPlaying=SongUtils.isPlaying;
         playButton.setText(playAndStop[isPlaying ? 1 : 0]);
-        songLabel.setText(SongUtils.getCurrentSong().title);
+        if(isPlaying && SongUtils.curSong!=null) cancelTimer();
+        else pauseTimer();
     }
-
-    public void nextMedia() throws ExecutionException, InterruptedException, IOException {
-        SongUtils.Pause();
-        SongUtils.NextSong();
-        CoverImageUtils.refresh();
-        cancelTimer();
-        if(SongUtils.curSong!=null) {
-            songLabel.setText(SongUtils.getCurrentSong().title);
-            if (isPlaying) playSong();
-        }
-        else{
-            songLabel.setText("Melozone");
-            cancelTimer();
-            songProgressBar.setProgress(0);
-            isPlaying = false;
-            playButton.setText(playAndStop[isPlaying ? 1 : 0]);
-        }
-    }
-    public void prevMedia() throws ExecutionException, InterruptedException, IOException {
-        SongUtils.Pause();
-        SongUtils.PrevSong();
-        CoverImageUtils.refresh();
-        cancelTimer();
-        if (isPlaying) playSong();
-        if (SongUtils.curSong!=null) songLabel.setText(SongUtils.getCurrentSong().title);
-        else{
-            songLabel.setText("Melozone");
-            cancelTimer();
-            songProgressBar.setProgress(0);
-        }
-    }
-
     public void resetMedia() throws IOException {
         songProgressBar.setProgress(0);
         SongUtils.Pause();
@@ -129,7 +62,7 @@ public class PlayerController implements Initializable {//View
         DownloadUtils.Clear();
     }
 
-    private void beginTimer() {
+    public void beginTimer() {
         timer = new Timer();
         task = new TimerTask() {
             @Override
@@ -146,7 +79,7 @@ public class PlayerController implements Initializable {//View
         timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
-    private void cancelTimer() {
+    void cancelTimer() {
         songProgressBar.setProgress(0);
         if(timer==null) return;
         timer.cancel();
