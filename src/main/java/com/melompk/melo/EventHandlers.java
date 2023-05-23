@@ -36,19 +36,22 @@ public class EventHandlers {
     public static EventHandler<ActionEvent> Play = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            try {
-                SongUtils.Play();
-            } catch (ExecutionException | IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            RefreshCover.handle(new ActionEvent());
-            SongUtils.player.setOnEndOfMedia(()-> {
+            if(!SongUtils.isPlaying) {
                 try {
                     SongUtils.Play();
                 } catch (ExecutionException | IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            });
+                RefreshCover.handle(new ActionEvent());
+                SongUtils.player.setOnEndOfMedia(() -> {
+                    try {
+                        SongUtils.Play();
+                    } catch (ExecutionException | IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+            else SongUtils.Pause();
             for(PlayerController contr: playerControllers){
                 contr.refresh();
             }
