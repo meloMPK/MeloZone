@@ -28,7 +28,7 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Button playButton, resetButton, prevButton, nextButton;
     @FXML
-    private Slider volumeSlider;
+    public Slider volumeSlider;
     @FXML
     private ProgressBar songProgressBar;
     public Label songLabel;
@@ -38,6 +38,8 @@ public class PlayerController implements Initializable {//View
     String[] playAndStop = {"PLAY", "STOP"};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(!EventHandlers.playerControllers.isEmpty())
+            volumeSlider.valueProperty().bindBidirectional(EventHandlers.playerControllers.getFirst().volumeSlider.valueProperty());
         EventHandlers.AddPlayerController(this);
         nextButton.setOnAction(EventHandlers.Next);
         playButton.setOnAction(EventHandlers.Play);
