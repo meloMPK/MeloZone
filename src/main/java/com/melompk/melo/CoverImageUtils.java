@@ -10,10 +10,8 @@ import javafx.scene.image.ImageView;
 public class CoverImageUtils {
     static Image image;
     static String albumCoverID;
-    static ImageView imageView;
 
-    public static void init(ImageView imv) throws IOException {
-        imageView = imv;
+    public static void init() throws IOException {
         refresh();
     }
 
@@ -31,8 +29,5 @@ public class CoverImageUtils {
         else {
             image = new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString());
         }
-        imageView.setImage(image);
-        imageView.setFitHeight(387);
-        imageView.setFitWidth(387);
     }
 }

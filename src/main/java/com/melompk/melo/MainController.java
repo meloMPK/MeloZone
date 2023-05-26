@@ -1,5 +1,7 @@
 package com.melompk.melo;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -10,20 +12,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
     @FXML
-    private ImageView coverImage;
-
+    public ImageView coverImage;
     @FXML
-    private Label songLabel;
-
+    public Label songLabel;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            CoverImageUtils.init(coverImage);
-            PlayerController.assignSongLabel(songLabel);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            EventHandlers.AddMainController(this);
+            refresh();
+    }
+    public void refresh(){
+        coverImage.setImage(CoverImageUtils.image);
+        coverImage.setFitHeight(387);
+        coverImage.setFitWidth(387);
+        if(SongUtils.curSong !=null) {
+            songLabel.setText(SongUtils.curSong.title);
+        }
+        else{
+            songLabel.setText("MeloZone");
         }
     }
 }

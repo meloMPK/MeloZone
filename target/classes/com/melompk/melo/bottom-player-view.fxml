@@ -11,10 +11,10 @@
             style="-fx-background-color: #202022;">
     <children>
         <ProgressBar fx:id="songProgressBar" layoutX="99.0" layoutY="27.0" prefHeight="18.0" prefWidth="847.0" progress="0.0" />
-        <Button fx:id="playButton" layoutX="468.0" layoutY="68.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
+        <Button fx:id="playButton" layoutX="468.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
         <Button fx:id="resetButton" layoutX="99.0" layoutY="68.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="109.0" text="RESET" />
-        <Button fx:id="prevButton" layoutX="345.0" layoutY="68.0" mnemonicParsing="false" onAction="#prevMedia" prefHeight="64.0" prefWidth="109.0" text="PREV" />
-        <Button fx:id="nextButton" layoutX="591.0" layoutY="68.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="64.0" prefWidth="109.0" text="NEXT" />
+        <Button fx:id="prevButton" layoutX="345.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="PREV" />
+        <Button fx:id="nextButton" layoutX="591.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="NEXT" />
         <Slider fx:id="volumeSlider" layoutX="806.0" layoutY="93.0" value="60.0" />
     </children>
 </AnchorPane>

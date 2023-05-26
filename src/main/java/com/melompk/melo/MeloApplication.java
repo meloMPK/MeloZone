@@ -13,13 +13,19 @@ public class MeloApplication extends Application {//Controller
     @Override
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
         FirebaseHandler.initialize();
+        CoverImageUtils.init();
+        SongQueue.Init();
         FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1045, 800);
         stage.setResizable(false);
         stage.setTitle("MeloZone");
         stage.setScene(scene);
         stage.show();
-        SongQueue.Init();
+        FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
+        Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
+        Stage secondStage = new Stage();
+        secondStage.setScene(sceneAlt);
+        secondStage.show();
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
             try {
@@ -29,9 +35,6 @@ public class MeloApplication extends Application {//Controller
             }
             Platform.exit();
             System.exit(0);
-
-
-
         });
     }
 
