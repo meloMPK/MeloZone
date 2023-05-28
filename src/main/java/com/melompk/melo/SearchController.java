@@ -71,12 +71,13 @@ public class SearchController implements Initializable {
 
     public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {
         if (Objects.equals(query, "*")) return new ArrayList<>(GetData.GetAllSongs());
-
-        List<String> queryArray = Arrays.asList(query.trim().split(" "));
-
-        return GetData.GetAllSongs().stream().filter(input -> {
-            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
-        }).collect(Collectors.toList());
+//
+//        List<String> queryArray = Arrays.asList(query.trim().split(" "));
+//
+//        return GetData.GetAllSongs().stream().filter(input -> {
+//            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
+//        }).collect(Collectors.toList());
+        return SearchUtils.SearchSongs(query);
     }
 
     public void search() throws ExecutionException, InterruptedException {
