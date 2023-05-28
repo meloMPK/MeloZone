@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.melo.MainController">
+<AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.MainController">
     <children>
         <fx:include source="left-bar-search.fxml" />
         <fx:include source="bottom-player-view.fxml" />

@@ -1,12 +1,15 @@
 package com.melompk.melo;
 
+import com.melompk.database.DownloadUtils;
+import com.melompk.database.FirebaseHandler;
+import com.melompk.model.CoverImageUtils;
+import com.melompk.model.SongQueue;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 public class MeloApplication extends Application {//Controller

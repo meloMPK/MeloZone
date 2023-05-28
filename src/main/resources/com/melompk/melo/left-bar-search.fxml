@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="660.0" prefWidth="410.0" style="-fx-background-color: #202022" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.melo.SearchController">
+<AnchorPane prefHeight="660.0" prefWidth="410.0" style="-fx-background-color: #202022" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.SearchController">
     <children>
         <TextField fx:id="searchBar" layoutX="38.0" layoutY="43.0" onAction="#getSearchQuery" prefHeight="35.0" prefWidth="250.0">
             <font>

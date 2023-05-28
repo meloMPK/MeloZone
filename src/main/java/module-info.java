@@ -14,4 +14,12 @@ module com.melompk.melo {
     requires google.cloud.storage;
     opens com.melompk.melo to javafx.fxml;
     exports com.melompk.melo;
+    exports com.melompk.data;
+    opens com.melompk.data to javafx.fxml;
+    exports com.melompk.model;
+    opens com.melompk.model to javafx.fxml;
+    exports com.melompk.database;
+    opens com.melompk.database to javafx.fxml;
+    exports com.melompk.controllers;
+    opens com.melompk.controllers to javafx.fxml;
 }

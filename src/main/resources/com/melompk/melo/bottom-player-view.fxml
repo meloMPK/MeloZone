@@ -5,7 +5,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.melompk.melo.PlayerController"
+            fx:controller="com.melompk.controllers.PlayerController"
             prefHeight="145.0" prefWidth="1045.0"
             layoutY="655"
             style="-fx-background-color: #202022;">
