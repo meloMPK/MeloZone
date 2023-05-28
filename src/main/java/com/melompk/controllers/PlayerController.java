@@ -44,14 +44,16 @@ public class PlayerController implements Initializable {//View
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+                if(SongUtils.curSong!=null) {
+                    SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+                }
             }
         });
 
         progressSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable ov) {
-                if (progressSlider.isPressed()) {
+                if (progressSlider.isPressed() && SongUtils.curSong!=null) {
                     SongUtils.player.seek(
                             SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue()*0.01));
                 }

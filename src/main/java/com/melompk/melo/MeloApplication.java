@@ -25,10 +25,10 @@ public class MeloApplication extends Application {//Controller
         stage.setScene(scene);
         stage.show();
         FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
-        Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
+        /*Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
         Stage secondStage = new Stage();
         secondStage.setScene(sceneAlt);
-        secondStage.show();
+        secondStage.show();*/
         //On exit
         stage.setOnCloseRequest(windowEvent -> {
             try {
