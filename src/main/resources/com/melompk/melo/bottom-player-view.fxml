@@ -14,4 +14,3 @@
       <Slider fx:id="progressSlider" blockIncrement="1.0" layoutX="89.0" layoutY="29.0" prefHeight="14.0" prefWidth="866.0" />
     </children>
 </AnchorPane>
->>>>>>> origin/week2Search
