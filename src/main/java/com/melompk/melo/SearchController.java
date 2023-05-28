@@ -1,7 +1,5 @@
 package com.melompk.melo;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,10 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +62,7 @@ public class SearchController implements Initializable {
         searchResultList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if (searchResultList.getSelectionModel().getSelectedItem() == null) return;
                 SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
                 EventHandlers.Next.handle(new ActionEvent());
             }
@@ -75,6 +70,8 @@ public class SearchController implements Initializable {
     }
 
     public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {
+        if (Objects.equals(query, "*")) return new ArrayList<>(GetData.GetAllSongs());
+
         List<String> queryArray = Arrays.asList(query.trim().split(" "));
 
         return GetData.GetAllSongs().stream().filter(input -> {

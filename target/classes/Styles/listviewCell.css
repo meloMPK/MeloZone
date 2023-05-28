@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'PublicSans-Regular';
+    src: url(“fonts/PublicSans-Regular.ttf”);
+}
+
 .list-view {
     -fx-padding: 5px ;
     -fx-background-color: #202022;
@@ -5,8 +10,9 @@
 
 .list-cell {
     -fx-padding: 8px ;
-    -fx-background-color: #2c2c2f;
-    -fx-background: #2c2c2f;
+    -fx-background-color: #202022;
+    -fx-background: #202022;
+    -fx-font-family: PublicSans-Regular;
     -fx-text-fill: white;
     -fx-background-insets: 4px, 5px ;
 }
