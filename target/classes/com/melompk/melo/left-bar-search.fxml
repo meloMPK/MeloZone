@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="660.0" prefWidth="410.0" style="-fx-background-color: #202022" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.SearchController">
     <children>
-        <TextField fx:id="searchBar" layoutX="38.0" layoutY="43.0" onAction="#getSearchQuery" prefHeight="35.0" prefWidth="250.0">
+        <TextField fx:id="searchBar" layoutX="38.0" layoutY="43.0" prefHeight="35.0" prefWidth="250.0">
             <font>
                 <Font name="Segoe UI" size="11.0" />
             </font>
@@ -18,6 +18,6 @@
             </opaqueInsets>
         </TextField>
         <Button fx:id="searchButton" layoutX="298.0" layoutY="48.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="52.0" text="search" />
-        <ListView fx:id="searchResultList" layoutX="38.0" layoutY="101.0" prefHeight="478.0" prefWidth="311.0" style="-fx-background-color: #202022;" />
+        <ListView fx:id="searchResultList" layoutX="38.0" layoutY="101.0" prefHeight="478.0" prefWidth="311.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
     </children>
 </AnchorPane>

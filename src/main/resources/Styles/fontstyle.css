@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'PublicSans-Regular';
+    src: url(“fonts/PublicSans-Regular.ttf”);
+}
+
+.label {
+    -fx-font-family: 'PublicSans-Regular';
+}

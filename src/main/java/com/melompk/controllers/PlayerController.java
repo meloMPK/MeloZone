@@ -3,13 +3,14 @@ package com.melompk.controllers;
 import com.melompk.database.DownloadUtils;
 import com.melompk.model.SongUtils;
 import com.melompk.model.EventHandlers;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 
@@ -26,9 +27,7 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Button playButton, resetButton, prevButton, nextButton;
     @FXML
-    public Slider volumeSlider;
-    @FXML
-    private ProgressBar songProgressBar;
+    public Slider volumeSlider, progressSlider;
     public Label songLabel;
     private Timer timer;
     private TimerTask task;
@@ -48,15 +47,25 @@ public class PlayerController implements Initializable {//View
                 SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
+
+        progressSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable ov) {
+                if (progressSlider.isPressed()) {
+                    SongUtils.player.seek(
+                            SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue()*0.01));
+                }
+            }
+        });
     }
     public void refresh(){
         isPlaying=SongUtils.isPlaying;
         playButton.setText(playAndStop[isPlaying ? 1 : 0]);
-        if(isPlaying && SongUtils.curSong!=null) cancelTimer();
+        if(isPlaying && SongUtils.curSong!=null) beginTimer();
         else pauseTimer();
     }
     public void resetMedia() throws IOException {
-        songProgressBar.setProgress(0);
+        progressSlider.setValue(0);
         SongUtils.Pause();
         songLabel.setText("Melozone");
         DownloadUtils.Clear();
@@ -70,8 +79,7 @@ public class PlayerController implements Initializable {//View
                 isPlaying = true;
                 double current = SongUtils.player.getCurrentTime().toSeconds();
                 double end = SongUtils.curMedia.getDuration().toSeconds();
-                songProgressBar.setProgress(current/end);
-
+                progressSlider.setValue((current/end)*100);
                 if (current/end == 1) cancelTimer();
             }
         };
@@ -80,7 +88,7 @@ public class PlayerController implements Initializable {//View
     }
 
     void cancelTimer() {
-        songProgressBar.setProgress(0);
+        progressSlider.setValue(0);
         if(timer==null) return;
         timer.cancel();
     }

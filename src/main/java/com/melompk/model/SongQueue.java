@@ -16,6 +16,9 @@ public class SongQueue {//Model
     public static void Add(Song song){
         que.add(song);
     }
+
+    public static void AddFront(Song song) { que.addFirst(song); }
+
     public static void AddAll(LinkedList<Song> songs){
         que.addAll(songs);
     }
