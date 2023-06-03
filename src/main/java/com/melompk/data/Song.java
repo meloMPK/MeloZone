@@ -5,11 +5,14 @@ public class Song implements MediaInfo {
     public String albumId;
     public String artistId;
     public String songId;
-    public Song(String title, String albumId, String artistId, String songId) throws NumberFormatException{
+    public String artistName;
+    public String albumName;
+    public Song(String title, String albumId, String artistId, String songId, String artistName) throws NumberFormatException{
         this.title=title;
         this.albumId=albumId;
         this.artistId=artistId;
         this.songId=songId;
+        this.artistName=artistName;
     }
     @Override
     public int compareTo(MediaInfo other) {

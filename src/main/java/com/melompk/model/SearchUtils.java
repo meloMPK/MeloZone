@@ -28,7 +28,11 @@ public class SearchUtils {
     public static LinkedList<MediaInfo> SearchSongs(String query) throws ExecutionException, InterruptedException, NumberFormatException {
         LinkedList<MediaInfo> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song:FirebaseHandler.db.collection("Songs").orderBy("Name").startAt(query).endAt(query+"\uf8ff").limit(10).get().get().getDocuments()){
-            songs.add(new Song((String) song.get("Name"), (String) song.get("AlbumId"), (String) song.get("ArtistId"),  song.getId()));
+            String artistName="";
+            if(song.get("ArtistId")!=null){
+                artistName = (String) FirebaseHandler.db.collection("Artists").document((String) song.get("ArtistId")).get().get().get("Name");
+            }
+            songs.add(new Song((String) song.get("Name"), (String) song.get("AlbumId"), (String) song.get("ArtistId"),  song.getId(),artistName));
         }
         return songs;
     }

@@ -89,7 +89,7 @@ public class SearchController implements Initializable {
                             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                         }
                         titleLabel.setText(((Song) item).title);
-                        infoLabel.setText(((Song) item).artistId);
+                        infoLabel.setText(((Song) item).artistName);
                         infoLabel.setStyle("-fx-text-fill: #909090");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
