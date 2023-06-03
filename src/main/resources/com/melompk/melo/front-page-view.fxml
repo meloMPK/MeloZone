@@ -7,7 +7,8 @@
 
 <AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.MainController">
     <children>
-        <fx:include source="left-bar-search.fxml" />
+        <!-- <fx:include source="left-bar-search.fxml" /> -->
+        <fx:include source="album-view.fxml" />
       <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
          <children>
               <Label fx:id="songLabel" alignment="CENTER" layoutX="72.0" layoutY="523.0" prefHeight="64.0" prefWidth="491.0" text="Melozone" textAlignment="CENTER" textFill="WHITE">
