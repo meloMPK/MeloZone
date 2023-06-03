@@ -15,7 +15,7 @@
                       <Font name="Segoe UI Semibold" size="49.0" />
                   </font>
               </Label>
-              <ImageView fx:id="coverImage" fitHeight="387.0" fitWidth="387.0" layoutX="124.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
+              <ImageView fx:id="coverImage" onSwipeUp="#print" fitHeight="387.0" fitWidth="387.0" layoutX="124.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
         <fx:include source="bottom-player-view.fxml" />

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.SwipeEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,5 +32,9 @@ public class MainController implements Initializable {
         else{
             songLabel.setText("MeloZone");
         }
+    }
+
+    public void print(SwipeEvent swipeEvent) {
+        System.out.println("xddddd");
     }
 }

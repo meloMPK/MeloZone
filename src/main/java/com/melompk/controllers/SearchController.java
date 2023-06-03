@@ -15,6 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -37,14 +44,30 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
-            private ImageView coverImage = new ImageView();
+            HBox hbox = new HBox();
+            VBox vbox = new VBox();
+            Label titleLabel = new Label("(empty)");
+            Label infoLabel = new Label("(empty)");
+            Button button = new Button("...");
+            Pane pane = new Pane();
+            ImageView coverImage = new ImageView();
 
+            {
+                vbox.getChildren().addAll(titleLabel, infoLabel);
+                hbox.getChildren().addAll(coverImage,vbox,pane, button);
+                coverImage.setFitWidth(30);
+                coverImage.setFitHeight(30);
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                vbox.setMaxWidth(200);
+                hbox.setMinWidth(270);
+                hbox.setMaxWidth(270);
+            }
             @Override
             protected void updateItem(MediaInfo item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null || ((Song) item).title == null) {
-                    setText(null);
+                    titleLabel.setText("");
                     setGraphic(null);
                 } else {
                     try {
@@ -55,13 +78,13 @@ public class SearchController implements Initializable {
                         } else {
                             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                         }
+                        titleLabel.setText(((Song) item).title);
+                        infoLabel.setText(((Song) item).artistId);
+                        infoLabel.setStyle("-fx-text-fill: #909090");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    coverImage.setFitHeight(30);
-                    coverImage.setFitWidth(30);
-                    setText(((Song) item).title);
-                    setGraphic(coverImage);
+                    setGraphic(hbox);
                 }
             }
         });
