@@ -7,6 +7,8 @@ import com.melompk.database.GetData;
 import com.melompk.model.EventHandlers;
 import com.melompk.model.SearchUtils;
 import com.melompk.model.SongQueue;
+import javafx.beans.property.ListProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,24 +42,32 @@ public class SearchController implements Initializable {
 
     @FXML
     private TextField searchBar;
+    private Alert confirm;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
             HBox hbox = new HBox();
             VBox vbox = new VBox();
             Label titleLabel = new Label("(empty)");
             Label infoLabel = new Label("(empty)");
-            Button button = new Button("...");
+            MenuButton other = new MenuButton();
             Pane pane = new Pane();
             ImageView coverImage = new ImageView();
+            MenuItem addFirst = new MenuItem("Add First");
+            MenuItem addLast = new MenuItem("Add Last");
 
             {
                 vbox.getChildren().addAll(titleLabel, infoLabel);
-                hbox.getChildren().addAll(coverImage,vbox,pane, button);
+                hbox.getChildren().addAll(coverImage,vbox,pane, other);
                 coverImage.setFitWidth(30);
                 coverImage.setFitHeight(30);
                 HBox.setHgrow(pane, Priority.ALWAYS);
+                other.setText("...");
+                other.setMaxWidth(30);
+                other.getItems().addAll(addFirst, addLast);
                 vbox.setMaxWidth(200);
                 hbox.setMinWidth(270);
                 hbox.setMaxWidth(270);
@@ -85,6 +95,18 @@ public class SearchController implements Initializable {
                         throw new RuntimeException(e);
                     }
                     setGraphic(hbox);
+                    addFirst.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            SongQueue.AddFront((Song) item);
+                        }
+                    });
+                    addLast.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            SongQueue.AddBack((Song) item);
+                        }
+                    });
                 }
             }
         });
@@ -93,6 +115,13 @@ public class SearchController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (searchResultList.getSelectionModel().getSelectedItem() == null) return;
+                if(!SongQueue.IsEmpty()) {
+                    confirm.showAndWait();
+                    if (confirm.getResult() == ButtonType.NO) {
+                        return;
+                    }
+                }
+                SongQueue.Clear();
                 SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
                 EventHandlers.Next.handle(new ActionEvent());
             }
