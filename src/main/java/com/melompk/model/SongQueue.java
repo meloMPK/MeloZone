@@ -37,6 +37,10 @@ public class SongQueue {//Model
         Song out = que.poll();
         DownloadUtils.DownloadSong(out.songId);
         DownloadUtils.DownloadCover(out.albumId);
+        if(!que.isEmpty()) {
+            DownloadUtils.DownloadSong(que.getFirst().songId);
+            DownloadUtils.DownloadCover(que.getFirst().albumId);
+        }
         return out;
     }
 
