@@ -6,10 +6,10 @@
 
 <AnchorPane prefHeight="145.0" prefWidth="1045.0" layoutY="655" style="-fx-background-color: #202022;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.PlayerController">
     <children>
-        <Button fx:id="playButton" layoutX="468.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="PLAY" />
-        <Button fx:id="resetButton" layoutX="99.0" layoutY="68.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="109.0" text="RESET" />
-        <Button fx:id="prevButton" layoutX="345.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="PREV" />
-        <Button fx:id="nextButton" layoutX="591.0" layoutY="68.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="NEXT" />
+        <Button fx:id="playButton" layoutX="468.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
+        <Button fx:id="resetButton" layoutX="99.0" layoutY="60.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css"/>
+        <Button fx:id="prevButton" layoutX="345.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
+        <Button fx:id="nextButton" layoutX="591.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
         <Slider fx:id="volumeSlider" layoutX="806.0" layoutY="93.0" value="60.0" />
       <Slider fx:id="progressSlider" blockIncrement="1.0" layoutX="89.0" layoutY="29.0" prefHeight="14.0" prefWidth="866.0" />
     </children>
