@@ -18,7 +18,7 @@ public class GetData {//Model
         }
         return songs;
     }
-    public LinkedList<Song> GetAllSongsFromArtist(String artistId) throws ExecutionException, InterruptedException {
+    public static LinkedList<Song> GetAllSongsFromArtist(String artistId) throws ExecutionException, InterruptedException {
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song:FirebaseHandler.db.collection("Songs").whereEqualTo("ArtistId", artistId).get().get()){
             String artistName="";
@@ -29,7 +29,7 @@ public class GetData {//Model
         }
         return songs;
     }
-    public LinkedList<Song> GetAllSongsFromAlbum(String albumId) throws ExecutionException, InterruptedException {
+    public static LinkedList<Song> GetAllSongsFromAlbum(String albumId) throws ExecutionException, InterruptedException {
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song:FirebaseHandler.db.collection("Songs").whereEqualTo("AlbumId", albumId).get().get()){
             String artistName="";
