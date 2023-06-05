@@ -27,7 +27,7 @@ public class MainController implements Initializable {
         coverImage.setFitHeight(387);
         coverImage.setFitWidth(387);
         if(SongUtils.curSong !=null) {
-            songLabel.setText(SongUtils.curSong.title);
+            songLabel.setText(SongUtils.curSong.name);
         }
         else{
             songLabel.setText("MeloZone");

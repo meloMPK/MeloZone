@@ -1,11 +1,10 @@
 package com.melompk.data;
 
-public class Artist implements MediaInfo {
-    public String name;
-    public String artistId;
+public class Artist extends MediaInfo {
     public Artist(String name, String artistId){
         this.name=name;
         this.artistId=artistId;
+        this.imageId=null;
     }
     @Override
     public int compareTo(MediaInfo other) {

@@ -18,6 +18,9 @@
             </opaqueInsets>
         </TextField>
         <Button fx:id="searchButton" layoutX="298.0" layoutY="48.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="52.0" stylesheets="@../../../Styles/buttons.css"/>
-        <ListView fx:id="searchResultList" layoutX="38.0" layoutY="101.0" prefHeight="478.0" prefWidth="311.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
+        <Button fx:id="songsOptionButton" layoutX="40.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchSongs" prefHeight="26.0" prefWidth="60" textFill="whitesmoke" text="songs"/>
+        <Button fx:id="albumsOptionButton" layoutX="130.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchAlbums" prefHeight="26.0" prefWidth="60" textFill="whitesmoke" text="albums"/>
+        <Button fx:id="artistsOptionButton" layoutX="220.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchArtists" prefHeight="26.0" prefWidth="60" textFill="whitesmoke" text="artists"/>
+        <ListView fx:id="searchResultList" layoutX="38.0" layoutY="115.0" prefHeight="478.0" prefWidth="311.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
     </children>
 </AnchorPane>

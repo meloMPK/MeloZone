@@ -1,5 +1,7 @@
 package com.melompk.controllers;
 
+import com.melompk.data.Album;
+import com.melompk.data.Artist;
 import com.melompk.data.MediaInfo;
 import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
@@ -36,17 +38,23 @@ public class SearchController implements Initializable {
 
     @FXML
     private Button searchButton;
-
+    @FXML
+    private Button songsOptionButton;
+    @FXML
+    private Button albumsOptionButton;
+    @FXML
+    private Button artistsOptionButton;
     @FXML
     private ListView<MediaInfo> searchResultList;
 
     @FXML
     private TextField searchBar;
     private Alert confirm;
-
+    private int searchMode=0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SetSearchSongs();
         confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
         //searchutton
         ImageView searchGraphic = new ImageView();
@@ -57,8 +65,8 @@ public class SearchController implements Initializable {
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
             HBox hbox = new HBox();
             VBox vbox = new VBox();
-            Label titleLabel = new Label("(empty)");
-            Label infoLabel = new Label("(empty)");
+            Label titleLabel = new Label("");
+            Label infoLabel = new Label("");
             MenuButton other = new MenuButton();
             Pane pane = new Pane();
             ImageView coverImage = new ImageView();
@@ -82,21 +90,31 @@ public class SearchController implements Initializable {
             protected void updateItem(MediaInfo item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty || item == null || ((Song) item).title == null) {
+                if (empty || item == null) {
                     titleLabel.setText("");
                     setGraphic(null);
                 } else {
                     try {
-                        DownloadUtils.DownloadCover(((Song) item).albumId);
-
-                        if (DownloadUtils.IsCoverDownloaded(((Song) item).albumId+".jpg")) {
-                            coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ ((Song) item).albumId + ".jpg").toUri().toString()));
-                        } else {
+                        titleLabel.setText(item.name);
+                        infoLabel.setText("");
+                        if(item.imageId!=null){
+                            DownloadUtils.DownloadCover(item.imageId);
+                            if (DownloadUtils.IsCoverDownloaded((item).imageId+".jpg")) {
+                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ (item.imageId + ".jpg")).toUri().toString()));
+                            } else {
+                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                            }
+                        }
+                        else{
                             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                         }
-                        titleLabel.setText(((Song) item).title);
-                        infoLabel.setText(((Song) item).artistName);
-                        infoLabel.setStyle("-fx-text-fill: #909090");
+                        if(!(item instanceof Artist)){
+                            infoLabel.setText(item.artistName);
+                            infoLabel.setStyle("-fx-text-fill: #909090");
+                        }
+                        if(!(item instanceof Song)){
+                            other.setVisible(false);
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -121,32 +139,58 @@ public class SearchController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (searchResultList.getSelectionModel().getSelectedItem() == null) return;
-                if(!SongQueue.IsEmpty()) {
-                    confirm.showAndWait();
-                    if (confirm.getResult() == ButtonType.NO) {
-                        return;
+                if (searchResultList.getSelectionModel().getSelectedItem() instanceof Song) {
+                    if (!SongQueue.IsEmpty()) {
+                        confirm.showAndWait();
+                        if (confirm.getResult() == ButtonType.NO) {
+                            return;
+                        }
                     }
+                    SongQueue.Clear();
+                    SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
+                    EventHandlers.Next.handle(new ActionEvent());
                 }
-                SongQueue.Clear();
-                SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
-                EventHandlers.Next.handle(new ActionEvent());
             }
         });
     }
 
-    public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {
-        if (Objects.equals(query, "*")) return new ArrayList<>(GetData.GetAllSongs());
-//
+    public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {//
 //        List<String> queryArray = Arrays.asList(query.trim().split(" "));
 //
 //        return GetData.GetAllSongs().stream().filter(input -> {
 //            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
 //        }).collect(Collectors.toList());
-        return SearchUtils.SearchSongs(query);
+        if(searchMode==0){
+            return SearchUtils.SearchSongs(query);
+        }
+        if(searchMode==1){
+            return SearchUtils.SearchAlbums(query);
+        }
+        return SearchUtils.SearchArtists(query);
     }
 
     public void search() throws ExecutionException, InterruptedException {
         searchResultList.getItems().clear();
         searchResultList.getItems().addAll((searchList(searchBar.getText())));
+    }
+    public void ClearButtons(){
+        songsOptionButton.setStyle("-fx-background-color: #808080");
+        albumsOptionButton.setStyle("-fx-background-color: #808080");
+        artistsOptionButton.setStyle("-fx-background-color: #808080");
+    }
+    public void SetSearchSongs(){
+        ClearButtons();
+        searchMode=0;
+        songsOptionButton.setStyle("-fx-background-color: #303030");
+    }
+    public void SetSearchAlbums(){
+        ClearButtons();
+        searchMode=1;
+        albumsOptionButton.setStyle("-fx-background-color: #303030");
+    }
+    public void SetSearchArtists(){
+        ClearButtons();
+        searchMode=2;
+        artistsOptionButton.setStyle("-fx-background-color: #303030");
     }
 }

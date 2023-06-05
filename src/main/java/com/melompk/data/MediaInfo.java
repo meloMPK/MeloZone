@@ -1,4 +1,8 @@
 package com.melompk.data;
 
-public interface MediaInfo extends Comparable<MediaInfo> {
+public abstract class MediaInfo implements Comparable<MediaInfo> {
+    public String name;
+    public String imageId;
+    public String artistName;
+    public String artistId;
 }
