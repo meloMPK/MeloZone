@@ -48,6 +48,12 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
+        //searchutton
+        ImageView searchGraphic = new ImageView();
+        searchGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/search.png").toUri().toString()));
+        searchButton.setGraphic(searchGraphic);
+        searchGraphic.setFitHeight(35);
+        searchGraphic.setPreserveRatio(true);
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
             HBox hbox = new HBox();
             VBox vbox = new VBox();
@@ -89,7 +95,7 @@ public class SearchController implements Initializable {
                             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                         }
                         titleLabel.setText(((Song) item).title);
-                        infoLabel.setText(((Song) item).artistId);
+                        infoLabel.setText(((Song) item).artistName);
                         infoLabel.setStyle("-fx-text-fill: #909090");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
