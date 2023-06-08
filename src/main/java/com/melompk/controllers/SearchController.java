@@ -25,6 +25,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -152,12 +154,13 @@ public class SearchController implements Initializable {
                 }
                 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
-                    for (AlbumViewController contr : EventHandlers.albumViewControllers) {
-                        try {
-                            contr.show();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                    try {
+                        AlbumViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
+                        for (AlbumViewController contr : EventHandlers.albumViewControllers) {
+                            contr.refresh((Album)searchResultList.getSelectionModel().getSelectedItem());
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }

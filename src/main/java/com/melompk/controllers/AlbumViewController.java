@@ -85,14 +85,7 @@ public class AlbumViewController implements Initializable{
         });
 
         // refresh(new Album("AMPPZ", "2", "2"));
-        refresh(null);
-        try {
-            show();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+        refresh(null);        
     }
 
     public void refresh(Album album) {
@@ -110,9 +103,9 @@ public class AlbumViewController implements Initializable{
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
     }
 
-    public void show() throws IOException {
+    public static void show(Stage stage) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("album-view.fxml"));
-        Stage stage = (Stage)root.getScene().getWindow();
+        // Stage stage = (Stage)root.getScene().getWindow();
         stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
     }
     
