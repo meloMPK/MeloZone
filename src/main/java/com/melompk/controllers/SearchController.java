@@ -150,6 +150,16 @@ public class SearchController implements Initializable {
                     SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.Next.handle(new ActionEvent());
                 }
+                
+                if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
+                    for (AlbumViewController contr : EventHandlers.albumViewControllers) {
+                        try {
+                            contr.show();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
             }
         });
     }

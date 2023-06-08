@@ -9,13 +9,17 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import com.melompk.data.Album;
-import com.melompk.data.MediaInfo;
 import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
 import com.melompk.database.GetData;
+import com.melompk.melo.MeloApplication;
+import com.melompk.model.EventHandlers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -26,8 +30,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 public class AlbumViewController implements Initializable{
+
+    @FXML
+    private Parent root;
 
     @FXML
     private ListView<Song> albumSongsList;
@@ -39,7 +48,8 @@ public class AlbumViewController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        
+        EventHandlers.AddAlbumViewController(this);
         
         albumSongsList.setCellFactory(param -> new ListCell<Song>() {
             HBox hbox = new HBox();
@@ -74,14 +84,21 @@ public class AlbumViewController implements Initializable{
             }
         });
 
-        refresh(new Album("AMPPZ", "2", "2"));
+        // refresh(new Album("AMPPZ", "2", "2"));
+        refresh(null);
+        try {
+            show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
     }
 
     public void refresh(Album album) {
         if(album==null) {
             albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
-            return; //TODO: Some better idea
+            return;
         }
         this.album = album;
         try {
@@ -91,6 +108,12 @@ public class AlbumViewController implements Initializable{
             List<Song> songs = GetData.GetAllSongsFromAlbum(album.albumId);
             albumSongsList.getItems().setAll(songs);
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
+    }
+
+    public void show() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("album-view.fxml"));
+        Stage stage = (Stage)root.getScene().getWindow();
+        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
     }
     
 }
