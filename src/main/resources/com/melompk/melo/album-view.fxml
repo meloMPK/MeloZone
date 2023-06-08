@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.AlbumViewController">
+    <children>
+        <fx:include source="left-bar-search.fxml" />
+      <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
+        <ImageView fx:id="albumCoverImage" fitHeight="225.0" fitWidth="225.0" layoutX="205.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+        <ListView fx:id="albumSongsList" layoutX="0.0" layoutY="225.0" prefHeight="660.0" prefWidth="635.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
+
+      </AnchorPane>
+        <fx:include source="bottom-player-view.fxml" />
+    </children>
+</AnchorPane>

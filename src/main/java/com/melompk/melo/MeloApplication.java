@@ -18,7 +18,7 @@ public class MeloApplication extends Application {//Controller
         FirebaseHandler.initialize();
         CoverImageUtils.init();
         SongQueue.Init();
-        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("album-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1045, 800);
         stage.setResizable(false);
         stage.setTitle("MeloZone");
