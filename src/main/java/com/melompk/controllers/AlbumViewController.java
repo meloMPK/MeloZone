@@ -14,18 +14,24 @@ import com.melompk.database.DownloadUtils;
 import com.melompk.database.GetData;
 import com.melompk.melo.MeloApplication;
 import com.melompk.model.EventHandlers;
+import com.melompk.model.SongQueue;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -48,13 +54,17 @@ public class AlbumViewController implements Initializable{
     private Button hideButton;
 
     private Album album;
+    
+    private Alert confirm;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
         EventHandlers.AddAlbumViewController(this);
 
-        hideButton.setText("exit");;
+        hideButton.setText("exit");
+
+        confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
         
         albumSongsList.setCellFactory(param -> new ListCell<Song>() {
             HBox hbox = new HBox();
@@ -89,7 +99,24 @@ public class AlbumViewController implements Initializable{
             }
         });
 
-        // refresh(new Album("AMPPZ", "2", "2"));
+        albumSongsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (albumSongsList.getSelectionModel().getSelectedItem() == null) return;
+                if (albumSongsList.getSelectionModel().getSelectedItem() instanceof Song) {
+                    if (!SongQueue.IsEmpty()) {
+                        confirm.showAndWait();
+                        if (confirm.getResult() == ButtonType.NO) {
+                            return;
+                        }
+                    }
+                    SongQueue.Clear();
+                    SongQueue.AddFront((Song) albumSongsList.getSelectionModel().getSelectedItem());
+                    EventHandlers.Next.handle(new ActionEvent());
+                }
+            }
+        });
+
         refresh(null);        
     }
 
