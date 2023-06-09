@@ -36,9 +36,6 @@ import javafx.stage.Stage;
 public class AlbumViewController implements Initializable{
 
     @FXML
-    private Parent root;
-
-    @FXML
     private ListView<Song> albumSongsList;
 
     @FXML
@@ -47,12 +44,17 @@ public class AlbumViewController implements Initializable{
     @FXML
     private Label albumNameLabel;
 
+    @FXML
+    private Button hideButton;
+
     private Album album;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
         EventHandlers.AddAlbumViewController(this);
+
+        hideButton.setText("exit");;
         
         albumSongsList.setCellFactory(param -> new ListCell<Song>() {
             HBox hbox = new HBox();
@@ -109,7 +111,12 @@ public class AlbumViewController implements Initializable{
 
     public static void show(Stage stage) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("album-view.fxml"));
-        // Stage stage = (Stage)root.getScene().getWindow();
+        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
+    }
+
+    public void hide() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
+        Stage stage = (Stage)hideButton.getScene().getWindow();
         stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
     }
     
