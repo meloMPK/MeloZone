@@ -10,7 +10,12 @@
     <children>
         <fx:include source="left-bar-search.fxml" />
       <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
-        <ImageView fx:id="albumCoverImage" fitHeight="225.0" fitWidth="225.0" layoutX="205.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="albumCoverImage" fitHeight="225.0" fitWidth="225.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="albumNameLabel" alignment="CENTER" layoutX="235.0" layoutY="0.0" prefHeight="49.0" prefWidth="400.0" text="Album name" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                      <Font name="Segoe UI Semibold" size="49.0" />
+                  </font>
+              </Label>
         <ListView fx:id="albumSongsList" layoutX="0.0" layoutY="225.0" prefHeight="660.0" prefWidth="635.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
 
       </AnchorPane>

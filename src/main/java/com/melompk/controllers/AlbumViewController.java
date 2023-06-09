@@ -44,6 +44,9 @@ public class AlbumViewController implements Initializable{
     @FXML
     private ImageView albumCoverImage = new ImageView();
 
+    @FXML
+    private Label albumNameLabel;
+
     private Album album;
 
     @Override
@@ -91,13 +94,14 @@ public class AlbumViewController implements Initializable{
     public void refresh(Album album) {
         if(album==null) {
             albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+            albumNameLabel.setText("");
             return;
         }
         this.album = album;
         try {
             DownloadUtils.DownloadCover(album.albumId);
             albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + album.albumId + ".jpg").toUri().toString()));
-            System.out.println(albumCoverImage.getImage().getUrl());
+            albumNameLabel.setText(album.name);
             List<Song> songs = GetData.GetAllSongsFromAlbum(album.albumId);
             albumSongsList.getItems().setAll(songs);
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
