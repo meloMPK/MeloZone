@@ -8,7 +8,8 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.TilePane?>
-<AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.ArtistViewController">
+<?import javafx.scene.control.ScrollPane?>
+<AnchorPane fx:id="pane" prefHeight="420.0" style="-fx-background-color: #202022;" prefWidth="960.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.ArtistViewController">
     <children>
       <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0"  style="-fx-background-color: #202022;">
         <ImageView fx:id="artistImage" fitHeight="225.0" fitWidth="225.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
@@ -18,8 +19,9 @@
                       <Font name="Segoe UI Semibold" size="49.0" />
                   </font>
               </Label>
-        <TilePane fx:id="artistAlbumsList" layoutX="0.0" layoutY="225.0" maxHeight="430.0" prefWidth="635.0" style="-fx-background-color: #202022;"/>
-
+          <ScrollPane fitToHeight="true" vbarPolicy="ALWAYS" fitToWidth="true" layoutY="225.0" minHeight="430.0" maxHeight="430.0" maxWidth="635.0" minWidth="600.0" style="-fx-background-color: #202022;">
+        <TilePane fx:id="artistAlbumsList"  style="-fx-background-color: #202022;"/>
+          </ScrollPane>
       </AnchorPane>
     </children>
 </AnchorPane>
