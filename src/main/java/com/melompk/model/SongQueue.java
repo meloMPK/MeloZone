@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutionException;
 
 public class SongQueue {//Model
+    private SongQueue(){};
     static ConcurrentLinkedDeque<Song> que;
     static LinkedList<Song> playHistory;
     

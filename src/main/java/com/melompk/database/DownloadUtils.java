@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 
 public class DownloadUtils {//Model
+    private DownloadUtils(){};
     static LinkedList<String> DownloadedSongs = new LinkedList<>();
     static LinkedList<String> DownloadedCovers = new LinkedList<>();
     static LinkedList<String> DownloadedArtistImages = new LinkedList<>();

@@ -17,6 +17,7 @@ import com.google.cloud.storage.StorageOptions;
 
 
 public class FirebaseHandler {//Model
+    private FirebaseHandler(){};
     public static Firestore db;
     public static Storage storage;
     public static void initialize() throws IOException {

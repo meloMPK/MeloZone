@@ -30,6 +30,7 @@ public class EventHandlers {
     public static void AddArtistViewController(ArtistViewController contr) {
         artistViewControllers.add(contr);
     }
+    private EventHandlers(){};
 
     public static EventHandler<ActionEvent> RefreshCover = new EventHandler<ActionEvent>() {
         @Override

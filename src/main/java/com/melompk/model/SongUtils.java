@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 public class SongUtils {//Controller
+    private SongUtils(){};
     public static Media curMedia;
     public static MediaPlayer player=null;
     public static Song curSong = null;

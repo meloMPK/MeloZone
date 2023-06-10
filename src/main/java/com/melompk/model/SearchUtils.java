@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 public class SearchUtils {
+    private SearchUtils(){};
     public static LinkedList<MediaInfo> SearchAll(String query) throws ExecutionException, InterruptedException {
         LinkedList<MediaInfo> media = new LinkedList<>();
         media.addAll(SearchArtists(query));
