@@ -32,12 +32,14 @@ public class SongQueue {//Model
     public static void Init() throws NumberFormatException, ExecutionException, InterruptedException {
         que = new ConcurrentLinkedDeque<>();
         playHistory = new LinkedList<>();
-        SongQueue.AddAll(GetData.GetAllSongs());
     }
 
     public static Song NextSong() throws ExecutionException, InterruptedException, IOException {
         if(que.isEmpty()){
-            return null;
+            if(playHistory.isEmpty()){
+                que.addAll(GetData.GetAllSongs());
+            }
+            else return null;
         }
         if(SongUtils.curSong!=null)playHistory.addFirst(SongUtils.curSong);
         Song out = que.poll();

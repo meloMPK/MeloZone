@@ -22,6 +22,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -33,18 +35,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 
 public class ArtistViewController implements Initializable{
-
     @FXML
-    private ListView<Song> artistSongsList;
-
+    public TilePane artistAlbumsList;
     @FXML
     private ImageView artistImage = new ImageView();
 
@@ -56,72 +53,20 @@ public class ArtistViewController implements Initializable{
 
     private Artist artist;
     
-    private Alert confirm;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
         EventHandlers.AddArtistViewController(this);
-
         hideButton.setText("exit");
+        refresh(null);
+        artistAlbumsList.setVgap(3);
+        artistAlbumsList.setHgap(3);
+        artistAlbumsList.setPrefColumns(10);
 
-        confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
-        
-        artistSongsList.setCellFactory(param -> new ListCell<Song>() {
-            HBox hbox = new HBox();
-            VBox vbox = new VBox();
-            Label titleLabel = new Label("(empty)");
-            Label infoLabel = new Label("(empty)");
-            Button button = new Button("...");
-            Pane pane = new Pane();
-
-            {
-                vbox.getChildren().addAll(titleLabel, infoLabel);
-                hbox.getChildren().addAll(vbox,pane, button);
-                HBox.setHgrow(pane, Priority.ALWAYS);
-                vbox.setMaxWidth(200);
-                hbox.setMinWidth(270);
-                hbox.setMaxWidth(270);
-            }
-            
-            @Override
-            protected void updateItem(Song item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null || ((Song) item).name == null) {
-                    titleLabel.setText("");
-                    setGraphic(null);
-                } else {
-                    titleLabel.setText(((Song) item).name);
-                    infoLabel.setText(((Song) item).artistId);
-                    infoLabel.setStyle("-fx-text-fill: #909090");
-                    setGraphic(hbox);
-                }
-            }
-        });
-
-        artistSongsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (artistSongsList.getSelectionModel().getSelectedItem() == null) return;
-                if (artistSongsList.getSelectionModel().getSelectedItem() instanceof Song) {
-                    if (!SongQueue.IsEmpty()) {
-                        confirm.showAndWait();
-                        if (confirm.getResult() == ButtonType.NO) {
-                            return;
-                        }
-                    }
-                    SongQueue.Clear();
-                    SongQueue.AddFront((Song) artistSongsList.getSelectionModel().getSelectedItem());
-                    EventHandlers.Next.handle(new ActionEvent());
-                }
-            }
-        });
-
-        refresh(null);        
     }
 
     public void refresh(Artist artist) {
+        artistAlbumsList.getChildren().clear();
         if(artist==null) {
             artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
             artistNameLabel.setText("");
@@ -133,11 +78,40 @@ public class ArtistViewController implements Initializable{
             if(!DownloadUtils.IsArtistImageDownloaded(artist.artistId+".jpg")) artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
             else artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/" + artist.artistId + ".jpg").toUri().toString()));
             artistNameLabel.setText(artist.name);
-            List<Song> songs = GetData.GetAllSongsFromArtist(artist.artistId);
-            artistSongsList.getItems().setAll(songs);
+            List<Album> albums = GetData.GetAllAlbumsFromArtist(artist.artistId);
+            for(Album cur: albums){
+                artistAlbumsList.getChildren().add(CreateNode(cur));
+            }
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
     }
+    public Node CreateNode(Album item) throws IOException {
 
+        VBox box = new VBox();
+        box.setPrefSize(200,200);
+        box.setAlignment(Pos.CENTER);
+        ImageView coverImage = new ImageView();
+        coverImage.setFitWidth(150);
+        coverImage.setFitHeight(150);
+        Label albumName=new Label(item.name);
+        albumName.setStyle("-fx-text-fill: white");
+        albumName.setMinHeight(40);
+        DownloadUtils.DownloadArtistImage(item.imageId);
+        if (DownloadUtils.IsArtistImageDownloaded((item).imageId+".jpg")) {
+            coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ (item.imageId + ".jpg")).toUri().toString()));
+        } else {
+            coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+        }
+        box.getChildren().addAll(coverImage,albumName);
+        box.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                EventHandlers.RefreshAlbumView(item);
+                EventHandlers.SetAlbumView(true);
+            }
+        });
+
+        return box;
+    }
     public static void show(Stage stage) throws IOException{
         EventHandlers.SetArtistView();
     }

@@ -57,6 +57,7 @@ public class AlbumViewController implements Initializable{
     private Album album;
     
     private Alert confirm;
+    public boolean isReferencedFromArtist=false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -138,12 +139,9 @@ public class AlbumViewController implements Initializable{
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
     }
 
-    public static void show(Stage stage) throws IOException{
-        EventHandlers.SetAlbumView();
-    }
-
     public void hide() throws IOException {
-        EventHandlers.SetCoverTitleView();
+        if(isReferencedFromArtist) EventHandlers.SetArtistView();
+        else EventHandlers.SetCoverTitleView();
     }
 
     public void Play() {

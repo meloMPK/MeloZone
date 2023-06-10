@@ -1,8 +1,10 @@
 package com.melompk.model;
 
 import com.melompk.controllers.*;
+import com.melompk.data.Album;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -28,9 +30,17 @@ public class EventHandlers {
         artistViewControllers.add(contr);
     }
     private EventHandlers(){};
-    public static void SetAlbumView(){
+    public static void SetAlbumView(boolean isReferencedFromArtist){
         for (MainController cur: mainControllers){
             cur.SetAlbumView();
+        }
+        for(AlbumViewController cur: albumViewControllers){
+            cur.isReferencedFromArtist=isReferencedFromArtist;
+        }
+    }
+    public static void RefreshAlbumView(Album album){
+        for(AlbumViewController cur: albumViewControllers){
+            cur.refresh(album);
         }
     }
     public static void SetArtistView(){

@@ -164,14 +164,8 @@ public class SearchController implements Initializable {
                 }
                 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
-                    try {
-                        AlbumViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
-                        for (AlbumViewController contr : EventHandlers.albumViewControllers) {
-                            contr.refresh((Album)searchResultList.getSelectionModel().getSelectedItem());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    EventHandlers.RefreshAlbumView((Album)searchResultList.getSelectionModel().getSelectedItem());
+                    EventHandlers.SetAlbumView(false);
                 }
 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Artist) {

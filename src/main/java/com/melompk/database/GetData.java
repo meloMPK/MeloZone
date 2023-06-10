@@ -1,6 +1,7 @@
 package com.melompk.database;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.melompk.data.Album;
 import com.melompk.data.Song;
 
 import java.util.LinkedList;
@@ -41,5 +42,13 @@ public class GetData {//Model
             songs.add(new Song((String) song.get("Name"), (String) song.get("AlbumId"), (String) song.get("ArtistId"), song.getId(),artistName,(Long) song.get("Position")));
         }
         return songs;
+    }
+    public static LinkedList<Album> GetAllAlbumsFromArtist(String artistId) throws ExecutionException, InterruptedException {
+        LinkedList<Album> albums = new LinkedList<>();
+        for(QueryDocumentSnapshot album:FirebaseHandler.db.collection("Albums").whereEqualTo("ArtistId", artistId).get().get()){
+
+            albums.add(new Album((String) album.get("Name"),artistId, album.getId()));
+        }
+        return albums;
     }
 }
