@@ -1,9 +1,6 @@
 package com.melompk.model;
 
-import com.melompk.controllers.CoverController;
-import com.melompk.controllers.AlbumViewController;
-import com.melompk.controllers.ArtistViewController;
-import com.melompk.controllers.PlayerController;
+import com.melompk.controllers.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -16,6 +13,7 @@ public class EventHandlers {
     public static LinkedList<AlbumViewController> albumViewControllers = new LinkedList<>();
     public static LinkedList<ArtistViewController> artistViewControllers = new LinkedList<>();
     public static LinkedList<PlayerController> playerControllers = new LinkedList<>();
+    public static LinkedList<MainController> mainControllers = new LinkedList<>();
 
     public static void AddCoverController(CoverController contr) {
         coverControllers.add(contr);
@@ -30,7 +28,21 @@ public class EventHandlers {
         artistViewControllers.add(contr);
     }
     private EventHandlers(){};
-
+    public static void SetAlbumView(){
+        for (MainController cur: mainControllers){
+            cur.SetAlbumView();
+        }
+    }
+    public static void SetArtistView(){
+        for (MainController cur: mainControllers){
+            cur.SetArtistView();
+        }
+    }
+    public static void SetCoverTitleView(){
+        for (MainController cur: mainControllers){
+            cur.SetCoverTitleView();
+        }
+    }
     public static EventHandler<ActionEvent> RefreshCover = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {

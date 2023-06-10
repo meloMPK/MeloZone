@@ -139,14 +139,11 @@ public class ArtistViewController implements Initializable{
     }
 
     public static void show(Stage stage) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("artist-view.fxml"));
-        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
+        EventHandlers.SetArtistView();
     }
 
     public void hide() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
-        Stage stage = (Stage)hideButton.getScene().getWindow();
-        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
+        EventHandlers.SetCoverTitleView();
     }
     
 }

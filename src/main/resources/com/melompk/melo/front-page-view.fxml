@@ -9,7 +9,10 @@
 
 <AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.MainController">
     <children>
-        <fx:include source="cover-title-view.fxml" />
+        <fx:include fx:id="coverTitleView" source="cover-title-view.fxml" />
+        <fx:include fx:id="albumView" source="album-view.fxml"/>
+        <fx:include fx:id="artistView" source="artist-view.fxml"/>
+
       <AnchorPane layoutX="64.0" prefHeight="709.0" prefWidth="342.0" style="-fx-background-color: white;">
          <effect>
             <Shadow height="158.28" radius="53.725" width="58.62">

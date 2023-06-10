@@ -138,14 +138,11 @@ public class AlbumViewController implements Initializable{
     }
 
     public static void show(Stage stage) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("album-view.fxml"));
-        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
+        EventHandlers.SetAlbumView();
     }
 
     public void hide() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
-        Stage stage = (Stage)hideButton.getScene().getWindow();
-        stage.setScene(new Scene(fxmlLoader.load(), 1045, 800));
+        EventHandlers.SetCoverTitleView();
     }
     
 }
