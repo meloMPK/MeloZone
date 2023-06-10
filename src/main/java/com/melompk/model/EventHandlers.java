@@ -1,21 +1,20 @@
 package com.melompk.model;
 
-import com.melompk.controllers.MainController;
+import com.melompk.controllers.CoverController;
 import com.melompk.controllers.PlayerController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 public class EventHandlers {
-    static LinkedList<MainController> mainControllers = new LinkedList<>();
+    static LinkedList<CoverController> coverControllers = new LinkedList<>();
     public static LinkedList<PlayerController> playerControllers = new LinkedList<>();
 
-    public static void AddMainController(MainController contr) {
-        mainControllers.add(contr);
+    public static void AddCoverController(CoverController contr) {
+        coverControllers.add(contr);
     }
     public static void AddPlayerController(PlayerController contr) {
         playerControllers.add(contr);
@@ -29,7 +28,7 @@ public class EventHandlers {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            for (MainController contr : mainControllers) {
+            for (CoverController contr : coverControllers) {
                 contr.refresh();
             }
         }

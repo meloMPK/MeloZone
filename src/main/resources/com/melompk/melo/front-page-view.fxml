@@ -9,22 +9,8 @@
 
 <AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.MainController">
     <children>
-      <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
-         <children>
-              <ImageView fx:id="coverImage" fitHeight="400.0" fitWidth="400.0" layoutX="118.0" layoutY="100.0" onSwipeUp="#print" pickOnBounds="true" preserveRatio="true" />
-              <Label fx:id="songLabel" alignment="CENTER" layoutX="72.0" layoutY="511.0" prefHeight="64.0" prefWidth="491.0" text="Melozone" textAlignment="CENTER" textFill="WHITE">
-                  <font>
-                      <Font name="Segoe UI Semibold" size="49.0" />
-                  </font>
-              </Label>
-            <Label fx:id="artistLabel" layoutX="300.0" layoutY="570.0" text="artist" textFill="#b6b6b6">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="70.0" prefHeight="709.0" prefWidth="346.0" style="-fx-background-color: white;">
+        <fx:include source="cover-title-view.fxml" />
+      <AnchorPane layoutX="64.0" prefHeight="709.0" prefWidth="342.0" style="-fx-background-color: white;">
          <effect>
             <Shadow height="158.28" radius="53.725" width="58.62">
                <color>
