@@ -1,6 +1,7 @@
 package com.melompk.model;
 
 import com.melompk.controllers.AlbumViewController;
+import com.melompk.controllers.ArtistViewController;
 import com.melompk.controllers.MainController;
 import com.melompk.controllers.PlayerController;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class EventHandlers {
     static LinkedList<MainController> mainControllers = new LinkedList<>();
     public static LinkedList<AlbumViewController> albumViewControllers = new LinkedList<>();
+    public static LinkedList<ArtistViewController> artistViewControllers = new LinkedList<>();
     public static LinkedList<PlayerController> playerControllers = new LinkedList<>();
 
     public static void AddMainController(MainController contr) {
@@ -24,6 +26,9 @@ public class EventHandlers {
     }
     public static void AddAlbumViewController(AlbumViewController contr) {
         albumViewControllers.add(contr);
+    }
+    public static void AddArtistViewController(ArtistViewController contr) {
+        artistViewControllers.add(contr);
     }
 
     public static EventHandler<ActionEvent> RefreshCover = new EventHandler<ActionEvent>() {

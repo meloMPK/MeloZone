@@ -173,6 +173,17 @@ public class SearchController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+
+                if (searchResultList.getSelectionModel().getSelectedItem() instanceof Artist) {
+                    try {
+                        ArtistViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
+                        for (ArtistViewController contr : EventHandlers.artistViewControllers) {
+                            contr.refresh((Artist)searchResultList.getSelectionModel().getSelectedItem());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
