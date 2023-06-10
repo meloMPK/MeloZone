@@ -129,7 +129,8 @@ public class AlbumViewController implements Initializable{
         this.album = album;
         try {
             DownloadUtils.DownloadCover(album.albumId);
-            albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + album.albumId + ".jpg").toUri().toString()));
+            if(!DownloadUtils.IsCoverDownloaded(album.albumId+".jpg")) albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+            else albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + album.albumId + ".jpg").toUri().toString()));
             albumNameLabel.setText(album.name);
             List<Song> songs = GetData.GetAllSongsFromAlbum(album.albumId);
             albumSongsList.getItems().setAll(songs);

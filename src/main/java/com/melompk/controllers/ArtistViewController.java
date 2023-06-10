@@ -129,8 +129,9 @@ public class ArtistViewController implements Initializable{
         }
         this.artist = artist;
         try {
-            DownloadUtils.DownloadArtistImage(artist.artistId);;
-            artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/" + artist.artistId + ".jpg").toUri().toString()));
+            DownloadUtils.DownloadArtistImage(artist.artistId);
+            if(!DownloadUtils.IsArtistImageDownloaded(artist.artistId+".jpg")) artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+            else artistImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/" + artist.artistId + ".jpg").toUri().toString()));
             artistNameLabel.setText(artist.name);
             List<Song> songs = GetData.GetAllSongsFromArtist(artist.artistId);
             artistSongsList.getItems().setAll(songs);
