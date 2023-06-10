@@ -1,4 +1,5 @@
 package com.melompk.database;
+import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.melompk.data.Song;
 
@@ -31,7 +32,7 @@ public class GetData {//Model
     }
     public static LinkedList<Song> GetAllSongsFromAlbum(String albumId) throws ExecutionException, InterruptedException {
         LinkedList<Song> songs = new LinkedList<>();
-        for(QueryDocumentSnapshot song:FirebaseHandler.db.collection("Songs").whereEqualTo("AlbumId", albumId).get().get()){
+        for(QueryDocumentSnapshot song:FirebaseHandler.db.collection("Songs").orderBy("Position", Query.Direction.ASCENDING).whereEqualTo("AlbumId", albumId).get().get()){
             String artistName="";
             if(song.get("ArtistId")!=null){
                 artistName = (String) FirebaseHandler.db.collection("Artists").document((String) song.get("ArtistId")).get().get().get("Name");
