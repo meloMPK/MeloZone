@@ -25,6 +25,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,11 +100,21 @@ public class SearchController implements Initializable {
                         titleLabel.setText(item.name);
                         infoLabel.setText("");
                         if(item.imageId!=null){
-                            DownloadUtils.DownloadCover(item.imageId);
-                            if (DownloadUtils.IsCoverDownloaded((item).imageId+".jpg")) {
-                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ (item.imageId + ".jpg")).toUri().toString()));
-                            } else {
-                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                            if(item instanceof Artist){
+                                DownloadUtils.DownloadArtistImage(item.imageId);
+                                if (DownloadUtils.IsArtistImageDownloaded((item).imageId+".jpg")) {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/"+ (item.imageId + ".jpg")).toUri().toString()));
+                                } else {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                                }
+                            }
+                            else {
+                                DownloadUtils.DownloadCover(item.imageId);
+                                if (DownloadUtils.IsCoverDownloaded((item).imageId + ".jpg")) {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + (item.imageId + ".jpg")).toUri().toString()));
+                                } else {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                                }
                             }
                         }
                         else{
@@ -149,6 +161,28 @@ public class SearchController implements Initializable {
                     SongQueue.Clear();
                     SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.Next.handle(new ActionEvent());
+                }
+                
+                if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
+                    try {
+                        AlbumViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
+                        for (AlbumViewController contr : EventHandlers.albumViewControllers) {
+                            contr.refresh((Album)searchResultList.getSelectionModel().getSelectedItem());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (searchResultList.getSelectionModel().getSelectedItem() instanceof Artist) {
+                    try {
+                        ArtistViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
+                        for (ArtistViewController contr : EventHandlers.artistViewControllers) {
+                            contr.refresh((Artist)searchResultList.getSelectionModel().getSelectedItem());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

@@ -1,8 +1,10 @@
 package com.melompk.melo;
 
+import com.melompk.controllers.AlbumViewController;
 import com.melompk.database.DownloadUtils;
 import com.melompk.database.FirebaseHandler;
 import com.melompk.model.CoverImageUtils;
+import com.melompk.model.EventHandlers;
 import com.melompk.model.SongQueue;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,8 +26,8 @@ public class MeloApplication extends Application {//Controller
         stage.setTitle("MeloZone");
         stage.setScene(scene);
         stage.show();
-        FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
-        /*Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
+        /*FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
+        Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
         Stage secondStage = new Stage();
         secondStage.setScene(sceneAlt);
         secondStage.show();*/
