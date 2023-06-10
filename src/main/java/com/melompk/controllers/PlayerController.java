@@ -109,6 +109,7 @@ public class PlayerController implements Initializable {//View
         }
         if(isPlaying && SongUtils.curSong!=null) beginTimer();
         else pauseTimer();
+        SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
     }
     public void resetMedia() throws IOException {
         progressSlider.setValue(0);
