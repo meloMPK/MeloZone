@@ -17,6 +17,9 @@ public class CoverController implements Initializable {
     public ImageView coverImage;
     @FXML
     public Label songLabel;
+    @FXML
+    public Label artistLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
             EventHandlers.AddCoverController(this);
@@ -28,9 +31,11 @@ public class CoverController implements Initializable {
         coverImage.setFitWidth(387);
         if(SongUtils.curSong !=null) {
             songLabel.setText(SongUtils.curSong.name);
+            artistLabel.setText(SongUtils.curSong.artistName);
         }
         else{
             songLabel.setText("MeloZone");
+            artistLabel.setText("MeloMPK");
         }
     }
 
