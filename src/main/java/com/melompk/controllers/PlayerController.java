@@ -29,7 +29,7 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Pane pane;
     @FXML
-    private Button playButton, resetButton, prevButton, nextButton;
+    private Button playButton, prevButton, nextButton;
     @FXML
     public Slider volumeSlider, progressSlider;
     public Label songLabel;
@@ -76,7 +76,6 @@ public class PlayerController implements Initializable {//View
         //reset
         ImageView resetGraphic = new ImageView();
         resetGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/reset.png").toUri().toString()));
-        resetButton.setGraphic(resetGraphic);
         resetGraphic.setFitHeight(20);
         resetGraphic.setPreserveRatio(true);
 
@@ -110,12 +109,6 @@ public class PlayerController implements Initializable {//View
         if(isPlaying && SongUtils.curSong!=null) beginTimer();
         else pauseTimer();
         SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
-    }
-    public void resetMedia() throws IOException {
-        progressSlider.setValue(0);
-        SongUtils.Pause();
-        songLabel.setText("Melozone");
-        DownloadUtils.Clear();
     }
 
     public void beginTimer() {

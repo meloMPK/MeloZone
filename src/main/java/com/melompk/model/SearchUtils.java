@@ -33,7 +33,7 @@ public class SearchUtils {
             if(song.get("ArtistId")!=null){
                 artistName = (String) FirebaseHandler.db.collection("Artists").document((String) song.get("ArtistId")).get().get().get("Name");
             }
-            songs.add(new Song((String) song.get("Name"), (String) song.get("AlbumId"), (String) song.get("ArtistId"),  song.getId(),artistName));
+            songs.add(new Song((String) song.get("Name"), (String) song.get("AlbumId"), (String) song.get("ArtistId"),  song.getId(),artistName,(Long) song.get("Position")));
         }
         return songs;
     }

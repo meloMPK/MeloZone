@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="420.0" prefWidth="960.0" style="-fx-background-color: #0B0B0D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.AlbumViewController">
     <children>
-      <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
+      <AnchorPane layoutX="410.0" prefHeight="660.0" style="-fx-background-color: #202022;" prefWidth="635.0">
         <ImageView fx:id="albumCoverImage" fitHeight="225.0" fitWidth="225.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
         <Button fx:id="hideButton" layoutX="550.0" layoutY="0.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" onAction="#hide" stylesheets="@../../../Styles/buttons.css" />
         <Label fx:id="albumNameLabel" alignment="CENTER" layoutX="235.0" layoutY="64.0" prefHeight="49.0" prefWidth="400.0" text="Album name" textAlignment="CENTER" textFill="WHITE">
@@ -17,8 +17,9 @@
                       <Font name="Segoe UI Semibold" size="49.0" />
                   </font>
               </Label>
-        <ListView fx:id="albumSongsList" layoutX="0.0" layoutY="225.0" prefHeight="660.0" prefWidth="635.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
-
+          <Button text="Play" onAction="#Play" layoutX="450.0" layoutY="140.0"/>
+          <Button text="Add to queue" onAction="#AddToQueue" layoutX="500" layoutY="140.0"/>
+        <ListView fx:id="albumSongsList" layoutX="0.0" layoutY="225.0" prefHeight="430.0" prefWidth="635.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
       </AnchorPane>
     </children>
 </AnchorPane>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -64,7 +65,7 @@ public class AlbumViewController implements Initializable{
 
         hideButton.setText("exit");
 
-        confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
+        confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this now?", ButtonType.YES, ButtonType.NO);
         
         albumSongsList.setCellFactory(param -> new ListCell<Song>() {
             HBox hbox = new HBox();
@@ -91,8 +92,8 @@ public class AlbumViewController implements Initializable{
                     titleLabel.setText("");
                     setGraphic(null);
                 } else {
-                    titleLabel.setText(((Song) item).name);
-                    infoLabel.setText(((Song) item).artistId);
+                    titleLabel.setText(item.name);
+                    infoLabel.setText(String.valueOf(item.albumPosition));
                     infoLabel.setStyle("-fx-text-fill: #909090");
                     setGraphic(hbox);
                 }
@@ -144,5 +145,20 @@ public class AlbumViewController implements Initializable{
     public void hide() throws IOException {
         EventHandlers.SetCoverTitleView();
     }
-    
+
+    public void Play() {
+        if (!SongQueue.IsEmpty()) {
+            confirm.showAndWait();
+            if (confirm.getResult() == ButtonType.NO) {
+                return;
+            }
+        }
+        SongQueue.Clear();
+        AddToQueue();
+        EventHandlers.Next.handle(new ActionEvent());
+    }
+
+    public void AddToQueue() {
+        SongQueue.AddAll(new LinkedList<>(albumSongsList.getItems()));
+    }
 }
