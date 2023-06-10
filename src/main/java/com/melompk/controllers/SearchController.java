@@ -100,11 +100,21 @@ public class SearchController implements Initializable {
                         titleLabel.setText(item.name);
                         infoLabel.setText("");
                         if(item.imageId!=null){
-                            DownloadUtils.DownloadCover(item.imageId);
-                            if (DownloadUtils.IsCoverDownloaded((item).imageId+".jpg")) {
-                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ (item.imageId + ".jpg")).toUri().toString()));
-                            } else {
-                                coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                            if(item instanceof Artist){
+                                DownloadUtils.DownloadArtistImage(item.imageId);
+                                if (DownloadUtils.IsArtistImageDownloaded((item).imageId+".jpg")) {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/"+ (item.imageId + ".jpg")).toUri().toString()));
+                                } else {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                                }
+                            }
+                            else {
+                                DownloadUtils.DownloadCover(item.imageId);
+                                if (DownloadUtils.IsCoverDownloaded((item).imageId + ".jpg")) {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + (item.imageId + ".jpg")).toUri().toString()));
+                                } else {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
+                                }
                             }
                         }
                         else{

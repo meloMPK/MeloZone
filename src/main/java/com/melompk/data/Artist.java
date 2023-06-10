@@ -4,7 +4,7 @@ public class Artist extends MediaInfo {
     public Artist(String name, String artistId){
         this.name=name;
         this.artistId=artistId;
-        this.imageId=null;
+        this.imageId=artistId;
     }
     @Override
     public int compareTo(MediaInfo other) {

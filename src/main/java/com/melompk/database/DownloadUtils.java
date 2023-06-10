@@ -13,6 +13,7 @@ import java.util.LinkedList;
 public class DownloadUtils {//Model
     static LinkedList<String> DownloadedSongs = new LinkedList<>();
     static LinkedList<String> DownloadedCovers = new LinkedList<>();
+    static LinkedList<String> DownloadedArtistImages = new LinkedList<>();
 
     public static void DownloadSong(String id) throws IOException {
         String filename = id+".mp3";
@@ -30,8 +31,22 @@ public class DownloadUtils {//Model
             Blob blob = FirebaseHandler.storage.get(BlobId.of("melozone-7db34.appspot.com", filename));
             File coversDirectory = Files.createDirectories(Paths.get("src/main/resources/Covers")).toFile();
             Path res = Paths.get(coversDirectory +"/"+ filename);
-            blob.downloadTo(res);
-            DownloadedCovers.add(filename);
+            if(blob!=null) {
+                blob.downloadTo(res);
+                DownloadedCovers.add(filename);
+            }
+        }
+    }
+    public static void DownloadArtistImage(String id) throws IOException{
+        String filename = id+".jpg";
+        if(!IsArtistImageDownloaded(filename)) {
+            Blob blob = FirebaseHandler.storage.get(BlobId.of("melozone-7db34.appspot.com", "ArtistImages/"+filename));
+            File artistImagesDirectory = Files.createDirectories(Paths.get("src/main/resources/ArtistImages")).toFile();
+            Path res = Paths.get(artistImagesDirectory +"/"+ filename);
+            if(blob!=null) {
+                blob.downloadTo(res);
+                DownloadedArtistImages.add(filename);
+            }
         }
     }
     public static boolean IsSongDownloaded(String filename){
@@ -40,6 +55,7 @@ public class DownloadUtils {//Model
     public static boolean IsCoverDownloaded(String filename){
         return DownloadedCovers.contains(filename);
     }
+    public static boolean IsArtistImageDownloaded(String filename){return DownloadedArtistImages.contains(filename);}
     public static void Clear() throws IOException {
         
         while(!DownloadedSongs.isEmpty()) {
