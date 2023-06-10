@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 public class GetData {//Model
+    private GetData(){};
     public static LinkedList<Song> GetAllSongs() throws ExecutionException, InterruptedException, NumberFormatException {
         LinkedList<Song> songs = new LinkedList<>();
         for(QueryDocumentSnapshot song: FirebaseHandler.db.collection("Songs").get().get().getDocuments()){

@@ -1,0 +1,5 @@
+target/
+.idea/
+src/main/java/resources/Covers/
+src/main/java/resources/Songs/
+src/main/java/resources/ArtistImages/

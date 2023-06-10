@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 public class CoverImageUtils {
     public static Image image;
     static String albumCoverID;
+    private CoverImageUtils(){};
 
     public static void init() throws IOException {
         refresh();
