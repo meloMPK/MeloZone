@@ -10,28 +10,17 @@ import java.util.concurrent.ExecutionException;
 
 import com.melompk.data.Album;
 import com.melompk.data.Artist;
-import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
 import com.melompk.database.GetData;
-import com.melompk.melo.MeloApplication;
 import com.melompk.model.EventHandlers;
-import com.melompk.model.SongQueue;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,7 +32,7 @@ public class ArtistViewController implements Initializable{
     @FXML
     public TilePane artistAlbumsList;
     @FXML
-    private ImageView artistImage = new ImageView();
+    private ImageView artistImage = new ImageView(), hideGraphic;
 
     @FXML
     private Label artistNameLabel;
@@ -57,7 +46,11 @@ public class ArtistViewController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         EventHandlers.AddArtistViewController(this);
-        hideButton.setText("exit");
+        hideGraphic = new ImageView();
+        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
+        hideButton.setGraphic(hideGraphic);
+        hideGraphic.setFitHeight(23);
+        hideGraphic.setPreserveRatio(true);
         refresh(null);
         artistAlbumsList.setVgap(3);
         artistAlbumsList.setHgap(3);

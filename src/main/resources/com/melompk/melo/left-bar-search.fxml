@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -22,18 +23,30 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-        <Button fx:id="songsOptionButton" layoutX="49.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchSongs" prefHeight="26.0" prefWidth="60.0" stylesheets="@../../../Styles/buttons.css" text="songs" textFill="whitesmoke">
+        <Button fx:id="songsOptionButton" layoutX="49.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchSongs" prefHeight="26.0" prefWidth="60.0" text="songs" textFill="whitesmoke">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
-        <Button fx:id="albumsOptionButton" layoutX="139.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchAlbums" prefHeight="26.0" prefWidth="60" stylesheets="@../../../Styles/buttons.css" text="albums" textFill="whitesmoke">
+         </cursor>
+         <stylesheets>
+            <URL value="@../../../Styles/buttons.css" />
+            <URL value="@../../../Styles/fontstyle.css" />
+         </stylesheets></Button>
+        <Button fx:id="albumsOptionButton" layoutX="139.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchAlbums" prefHeight="26.0" prefWidth="60" text="albums" textFill="whitesmoke">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
-        <Button fx:id="artistsOptionButton" layoutX="229.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchArtists" prefHeight="26.0" prefWidth="60" stylesheets="@../../../Styles/buttons.css" text="artists" textFill="whitesmoke">
+         </cursor>
+         <stylesheets>
+            <URL value="@../../../Styles/buttons.css" />
+            <URL value="@../../../Styles/fontstyle.css" />
+         </stylesheets></Button>
+        <Button fx:id="artistsOptionButton" layoutX="229.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchArtists" prefHeight="26.0" prefWidth="60" text="artists" textFill="whitesmoke">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
-         </cursor></Button>
+         </cursor>
+         <stylesheets>
+            <URL value="@../../../Styles/buttons.css" />
+            <URL value="@../../../Styles/fontstyle.css" />
+         </stylesheets></Button>
         <ListView fx:id="searchResultList" layoutX="36.0" layoutY="123.0" prefHeight="478.0" prefWidth="347.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
     </children>
 </AnchorPane>
