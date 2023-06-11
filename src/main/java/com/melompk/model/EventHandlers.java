@@ -82,13 +82,6 @@ public class EventHandlers {
                     throw new RuntimeException(e);
                 }
                 RefreshCover.handle(new ActionEvent());
-                SongUtils.player.setOnEndOfMedia(() -> {
-                    try {
-                        SongUtils.Play();
-                    } catch (ExecutionException | IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
             }
             else SongUtils.Pause();
             for(PlayerController contr: playerControllers){
