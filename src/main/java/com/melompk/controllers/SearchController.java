@@ -62,7 +62,7 @@ public class SearchController implements Initializable {
         ImageView searchGraphic = new ImageView();
         searchGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/search.png").toUri().toString()));
         searchButton.setGraphic(searchGraphic);
-        searchGraphic.setFitHeight(35);
+        searchGraphic.setFitHeight(40);
         searchGraphic.setPreserveRatio(true);
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
             HBox hbox = new HBox();
@@ -196,23 +196,23 @@ public class SearchController implements Initializable {
         searchResultList.getItems().addAll((searchList(searchBar.getText())));
     }
     public void ClearButtons(){
-        songsOptionButton.setStyle("-fx-background-color: #808080");
-        albumsOptionButton.setStyle("-fx-background-color: #808080");
-        artistsOptionButton.setStyle("-fx-background-color: #808080");
+        albumsOptionButton.setDisable(false);
+        artistsOptionButton.setDisable(false);
+        songsOptionButton.setDisable(false);
     }
     public void SetSearchSongs(){
         ClearButtons();
         searchMode=0;
-        songsOptionButton.setStyle("-fx-background-color: #303030");
+        songsOptionButton.setDisable(true);
     }
     public void SetSearchAlbums(){
         ClearButtons();
         searchMode=1;
-        albumsOptionButton.setStyle("-fx-background-color: #303030");
+        albumsOptionButton.setDisable(true);
     }
     public void SetSearchArtists(){
         ClearButtons();
         searchMode=2;
-        artistsOptionButton.setStyle("-fx-background-color: #303030");
+        artistsOptionButton.setDisable(true);
     }
 }

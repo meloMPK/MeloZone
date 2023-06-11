@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="660.0" prefWidth="410.0" style="-fx-background-color: #202022" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.SearchController">
     <children>
-        <TextField fx:id="searchBar" layoutX="36.0" layoutY="43.0" prefHeight="37.0" prefWidth="249.0" stylesheets="@../../../Styles/textfieldstyle.css">
+        <TextField fx:id="searchBar" layoutX="36.0" layoutY="37.0" prefHeight="42.0" prefWidth="265.0" stylesheets="@../../../Styles/textfieldstyle.css">
             <font>
                 <Font name="Segoe UI" size="11.0" />
             </font>
@@ -18,22 +18,22 @@
                 <Insets />
             </opaqueInsets>
         </TextField>
-        <Button fx:id="searchButton" layoutX="298.0" layoutY="48.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="52.0" stylesheets="@../../../Styles/buttons.css">
+        <Button fx:id="searchButton" layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#search" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Styles/imageButtons.css">
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-        <Button fx:id="songsOptionButton" layoutX="40.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchSongs" prefHeight="26.0" prefWidth="60" text="songs" textFill="whitesmoke">
+        <Button fx:id="songsOptionButton" layoutX="49.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchSongs" prefHeight="26.0" prefWidth="60.0" stylesheets="@../../../Styles/buttons.css" text="songs" textFill="whitesmoke">
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-        <Button fx:id="albumsOptionButton" layoutX="130.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchAlbums" prefHeight="26.0" prefWidth="60" text="albums" textFill="whitesmoke">
+        <Button fx:id="albumsOptionButton" layoutX="139.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchAlbums" prefHeight="26.0" prefWidth="60" stylesheets="@../../../Styles/buttons.css" text="albums" textFill="whitesmoke">
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-        <Button fx:id="artistsOptionButton" layoutX="220.0" layoutY="90.0" mnemonicParsing="false" onAction="#SetSearchArtists" prefHeight="26.0" prefWidth="60" text="artists" textFill="whitesmoke">
+        <Button fx:id="artistsOptionButton" layoutX="229.0" layoutY="88.0" mnemonicParsing="false" onAction="#SetSearchArtists" prefHeight="26.0" prefWidth="60" stylesheets="@../../../Styles/buttons.css" text="artists" textFill="whitesmoke">
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
-        <ListView fx:id="searchResultList" layoutX="38.0" layoutY="115.0" prefHeight="478.0" prefWidth="311.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
+        <ListView fx:id="searchResultList" layoutX="36.0" layoutY="123.0" prefHeight="478.0" prefWidth="347.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/listviewCell.css" />
     </children>
 </AnchorPane>
