@@ -11,6 +11,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -25,22 +27,14 @@ public class MeloApplication extends Application {//Controller
         stage.setResizable(false);
         stage.setTitle("MeloZone");
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+
         stage.show();
         /*FXMLLoader fxmlLoaderAlt = new FXMLLoader(MeloApplication.class.getResource("front-page-view.fxml"));
         Scene sceneAlt = new Scene(fxmlLoaderAlt.load(), 1045, 800);
         Stage secondStage = new Stage();
         secondStage.setScene(sceneAlt);
         secondStage.show();*/
-        //On exit
-        stage.setOnCloseRequest(windowEvent -> {
-            try {
-                DownloadUtils.Clear();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Platform.exit();
-            System.exit(0);
-        });
     }
 
     public static void main(String[] args) {
