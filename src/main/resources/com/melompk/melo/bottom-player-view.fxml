@@ -11,6 +11,6 @@
         <Button fx:id="nextButton" layoutX="572.0" layoutY="65.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/imageButtons.css" />
       <JFXSlider fx:id="progressSlider" blockIncrement="1.0" layoutX="218.0" layoutY="29.0" prefHeight="33.0" prefWidth="610.0" stylesheets="@../../../Styles/sliderstyle.css" value="-50.0" />
       <JFXSlider fx:id="volumeSlider" blockIncrement="1.0" layoutX="920.0" layoutY="80.0" prefHeight="33.0" prefWidth="100.0" stylesheets="@../../../Styles/sliderstyle.css" />
-      <Button fx:id="muteButton" layoutX="877.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" stylesheets="@../../../Styles/imageButtons.css" />
+      <Button fx:id="muteButton" layoutX="875.0" layoutY="71.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Styles/imageButtons.css" />
     </children>
 </AnchorPane>
