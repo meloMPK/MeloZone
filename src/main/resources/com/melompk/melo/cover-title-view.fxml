@@ -13,7 +13,7 @@
                     <Font name="Segoe UI Semibold" size="49.0" />
                 </font>
             </Label>
-            <Label fx:id="artistLabel" alignment="CENTER" layoutX="72.0" layoutY="582.0" prefWidth="491.0" stylesheets="@../../../Styles/fontstyle.css" text="artist" textFill="#b6b6b6">
+            <Label fx:id="artistLabel" alignment="CENTER" layoutX="72.0" layoutY="575.0" prefWidth="491.0" stylesheets="@../../../Styles/fontstyle.css" text="artist" textFill="#b6b6b6">
                 <font>
                     <Font size="16.0" />
                 </font>
