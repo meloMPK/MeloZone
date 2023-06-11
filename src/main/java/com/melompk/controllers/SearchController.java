@@ -91,6 +91,7 @@ public class SearchController implements Initializable {
             @Override
             protected void updateItem(MediaInfo item, boolean empty) {
                 super.updateItem(item, empty);
+                titleLabel.setMaxWidth(140);
 
                 if (empty || item == null) {
                     titleLabel.setText("");
