@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.melompk.controllers.CoverController"
-            layoutX="410.0" prefHeight="660.0" prefWidth="635.0">
+
+<AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.CoverController">
         <children>
             <ImageView fx:id="coverImage" fitHeight="400.0" fitWidth="400.0" layoutX="118.0" layoutY="100.0" onSwipeUp="#print" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="songLabel" alignment="CENTER" layoutX="72.0" layoutY="511.0" prefHeight="64.0" prefWidth="491.0" text="Melozone" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="songLabel" alignment="CENTER" layoutX="72.0" layoutY="511.0" prefHeight="64.0" prefWidth="491.0" stylesheets="@../../../Styles/fontstyle.css" text="Melozone" textAlignment="CENTER" textFill="WHITE">
                 <font>
                     <Font name="Segoe UI Semibold" size="49.0" />
                 </font>
             </Label>
-            <Label fx:id="artistLabel" alignment="CENTER" layoutX="72.0" prefWidth="491.0" layoutY="570.0" text="artist" textFill="#b6b6b6">
+            <Label fx:id="artistLabel" alignment="CENTER" layoutX="72.0" layoutY="575.0" prefWidth="491.0" stylesheets="@../../../Styles/fontstyle.css" text="artist" textFill="#b6b6b6">
                 <font>
                     <Font size="16.0" />
                 </font>

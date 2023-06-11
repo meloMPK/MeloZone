@@ -55,8 +55,8 @@ public class PlayerController implements Initializable {//View
         mutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/muted.png").toUri().toString()));
         unmutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/unmuted.png").toUri().toString()));
         muteButton.setGraphic(unmutedGraphic);
-        mutedGraphic.setFitHeight(23);
-        unmutedGraphic.setFitHeight(23);
+        mutedGraphic.setFitHeight(40);
+        unmutedGraphic.setFitHeight(40);
         mutedGraphic.setPreserveRatio(true);
         unmutedGraphic.setPreserveRatio(true);
 

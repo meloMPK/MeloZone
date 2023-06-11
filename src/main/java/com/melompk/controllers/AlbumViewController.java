@@ -10,11 +10,9 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import com.melompk.data.Album;
-import com.melompk.data.Artist;
 import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
 import com.melompk.database.GetData;
-import com.melompk.melo.MeloApplication;
 import com.melompk.model.EventHandlers;
 import com.melompk.model.SearchUtils;
 import com.melompk.model.SongQueue;
@@ -22,10 +20,7 @@ import com.melompk.model.SongQueue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -39,7 +34,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 
 public class AlbumViewController implements Initializable{
@@ -50,7 +44,7 @@ public class AlbumViewController implements Initializable{
     private ListView<Song> albumSongsList;
 
     @FXML
-    private ImageView albumCoverImage = new ImageView();
+    private ImageView albumCoverImage = new ImageView(), hideGraphic;
 
     @FXML
     private Label albumNameLabel;
@@ -67,8 +61,11 @@ public class AlbumViewController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
         EventHandlers.AddAlbumViewController(this);
-
-        hideButton.setText("exit");
+        hideGraphic = new ImageView();
+        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
+        hideButton.setGraphic(hideGraphic);
+        hideGraphic.setFitHeight(23);
+        hideGraphic.setPreserveRatio(true);
 
         confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this now?", ButtonType.YES, ButtonType.NO);
         

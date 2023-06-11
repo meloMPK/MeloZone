@@ -1,0 +1,7 @@
+#closeButton:hover {
+    -fx-background-color: #cd1a2b;
+}
+
+#minimiseButton:hover {
+    -fx-background-color: #3f3f3f;
+}

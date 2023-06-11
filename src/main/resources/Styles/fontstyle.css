@@ -1,8 +1,27 @@
 @font-face {
-    font-family: 'PublicSans-Regular';
-    src: url(“fonts/PublicSans-Regular.ttf”);
+    font-family: Public Sans SemiBold;
+    src: url('fonts/PublicSans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Public Sans Regular;
+    src: url('fonts/PublicSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: Public Sans Bold;
+    src: url('fonts/PublicSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: Public Sans Light;
+    src: url('fonts/PublicSans-Light.ttf');
 }
 
 .label {
-    -fx-font-family: 'PublicSans-Regular';
+    -fx-font-family: 'Public Sans SemiBold';
+}
+
+.button {
+    -fx-font-family: 'Public Sans Light';
 }
