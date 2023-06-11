@@ -96,6 +96,20 @@ public class EventHandlers {
             }
         }
     };
+
+    public static EventHandler<ActionEvent> Mute = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            if (SongUtils.player == null) return;
+            if(!SongUtils.player.isMute()) {
+                SongUtils.player.setMute(true);
+                for(PlayerController contr: playerControllers) contr.muteRefresh();
+            } else {
+                SongUtils.player.setMute(false);
+                for(PlayerController contr: playerControllers) contr.muteRefresh();
+            }
+        }
+    };
     public static EventHandler<ActionEvent> Next = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {

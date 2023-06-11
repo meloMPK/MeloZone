@@ -1,0 +1,21 @@
+.button {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: #828282;
+    -fx-scale-y: 1;
+    -fx-scale-x: 1;
+}
+
+.button:hover {
+    -fx-opacity: 30;
+}
+
+.button:pressed {
+    -fx-opacity: 60;
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
