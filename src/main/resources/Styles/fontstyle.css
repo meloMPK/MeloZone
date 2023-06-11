@@ -13,11 +13,15 @@
     src: url('fonts/PublicSans-Bold.ttf');
 }
 
+@font-face {
+    font-family: Public Sans Light;
+    src: url('fonts/PublicSans-Light.ttf');
+}
 
 .label {
-    -fx-font-family: 'Public Sans Bold';
+    -fx-font-family: 'Public Sans SemiBold';
 }
 
 .button {
-    -fx-font-family: 'Public Sans Regular';
+    -fx-font-family: 'Public Sans Light';
 }

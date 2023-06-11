@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -22,8 +23,16 @@
                   </font>
               </Label>
           <Label fx:id="artistNameLabel" alignment="TOP_LEFT" layoutX="31.0" layoutY="142.0" opacity="0.8" prefHeight="30.0" prefWidth="400.0" stylesheets="@../../../Styles/fontstyle.css" text="Artist name" textAlignment="CENTER" textFill="WHITE" />
-          <Button layoutX="31.0" layoutY="411.0" onAction="#Play" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../Styles/buttons.css" text="Play" />
-          <Button layoutX="95.0" layoutY="411.0" onAction="#AddToQueue" prefHeight="30.0" prefWidth="111.0" stylesheets="@../../../Styles/buttons.css" text="Add to queue" />
+          <Button layoutX="31.0" layoutY="411.0" onAction="#Play" prefHeight="30.0" prefWidth="50.0" text="Play">
+            <stylesheets>
+               <URL value="@../../../Styles/buttons.css" />
+               <URL value="@../../../Styles/fontstyle.css" />
+            </stylesheets></Button>
+          <Button layoutX="95.0" layoutY="411.0" onAction="#AddToQueue" prefHeight="30.0" prefWidth="111.0" text="Add to queue">
+            <stylesheets>
+               <URL value="@../../../Styles/buttons.css" />
+               <URL value="@../../../Styles/fontstyle.css" />
+            </stylesheets></Button>
         <ListView fx:id="albumSongsList" layoutX="268.0" layoutY="170.0" prefHeight="487.0" prefWidth="367.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
       </AnchorPane>
     </children>
