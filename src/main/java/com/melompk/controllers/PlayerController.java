@@ -29,16 +29,16 @@ public class PlayerController implements Initializable {//View
     @FXML
     private Pane pane;
     @FXML
-    private Button playButton, prevButton, nextButton;
+    private Button playButton, prevButton, nextButton, muteButton;
     @FXML
     public Slider volumeSlider, progressSlider;
     public Label songLabel;
-    ImageView playGraphic;
-    ImageView pauseGraphic;
+    ImageView playGraphic, pauseGraphic, mutedGraphic, unmutedGraphic;
     private Timer timer;
     private TimerTask task;
     private boolean isPlaying = false;
-    String[] playAndStop = {"PLAY", "STOP"};
+    private boolean muted = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(!EventHandlers.playerControllers.isEmpty())
@@ -47,6 +47,18 @@ public class PlayerController implements Initializable {//View
         nextButton.setOnAction(EventHandlers.Next);
         playButton.setOnAction(EventHandlers.Play);
         prevButton.setOnAction(EventHandlers.Prev);
+        muteButton.setOnAction(EventHandlers.Mute);
+
+        //muteButton
+        mutedGraphic = new ImageView();
+        unmutedGraphic = new ImageView();
+        mutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/muted.png").toUri().toString()));
+        unmutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/unmuted.png").toUri().toString()));
+        muteButton.setGraphic(unmutedGraphic);
+        mutedGraphic.setFitHeight(23);
+        unmutedGraphic.setFitHeight(23);
+        mutedGraphic.setPreserveRatio(true);
+        unmutedGraphic.setPreserveRatio(true);
 
         //playButton
         playGraphic = new ImageView();
@@ -54,8 +66,8 @@ public class PlayerController implements Initializable {//View
         playGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/play.png").toUri().toString()));
         pauseGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/pause.png").toUri().toString()));
         playButton.setGraphic(playGraphic);
-        playGraphic.setFitHeight(64);
-        pauseGraphic.setFitHeight(64);
+        playGraphic.setFitHeight(40);
+        pauseGraphic.setFitHeight(40);
         playGraphic.setPreserveRatio(true);
         pauseGraphic.setPreserveRatio(true);
 
@@ -63,14 +75,14 @@ public class PlayerController implements Initializable {//View
         ImageView prevGraphic = new ImageView();
         prevGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/prev.png").toUri().toString()));
         prevButton.setGraphic(prevGraphic);
-        prevGraphic.setFitHeight(64);
+        prevGraphic.setFitHeight(40);
         prevGraphic.setPreserveRatio(true);
 
         //nextButton
         ImageView nextGrahpic = new ImageView();
         nextGrahpic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/next.png").toUri().toString()));
         nextButton.setGraphic(nextGrahpic);
-        nextGrahpic.setFitHeight(64);
+        nextGrahpic.setFitHeight(40);
         nextGrahpic.setPreserveRatio(true);
 
         //reset
@@ -106,9 +118,17 @@ public class PlayerController implements Initializable {//View
         else{
             playButton.setGraphic(playGraphic);
         }
+
         if(isPlaying && SongUtils.curSong!=null) beginTimer();
         else pauseTimer();
+        SongUtils.player.setMute(muted);
         SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+    }
+
+    public void muteRefresh() {
+        muted = SongUtils.player.isMute();
+        if (muted) muteButton.setGraphic(mutedGraphic);
+        else muteButton.setGraphic(unmutedGraphic);
     }
 
     public void beginTimer() {

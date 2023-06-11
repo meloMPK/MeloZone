@@ -6,10 +6,11 @@
 
 <AnchorPane layoutY="655.0" prefHeight="145.0" prefWidth="1045.0" style="-fx-background-color: #202022;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.PlayerController">
     <children>
-        <Button fx:id="playButton" layoutX="468.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
-        <Button fx:id="prevButton" layoutX="345.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
-        <Button fx:id="nextButton" layoutX="591.0" layoutY="60.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/buttons.css" />
+        <Button fx:id="playButton" layoutX="491.0" layoutY="65.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/imageButtons.css" />
+        <Button fx:id="prevButton" layoutX="410.0" layoutY="65.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/imageButtons.css" />
+        <Button fx:id="nextButton" layoutX="572.0" layoutY="65.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" stylesheets="@../../../Styles/imageButtons.css" />
       <JFXSlider fx:id="progressSlider" blockIncrement="1.0" layoutX="218.0" layoutY="29.0" prefHeight="33.0" prefWidth="610.0" stylesheets="@../../../Styles/sliderstyle.css" value="-50.0" />
-      <JFXSlider fx:id="volumeSlider" layoutX="920.0" layoutY="80.0" prefHeight="33.0" prefWidth="100.0" stylesheets="@../../../Styles/sliderstyle.css" />
+      <JFXSlider fx:id="volumeSlider" blockIncrement="1.0" layoutX="920.0" layoutY="80.0" prefHeight="33.0" prefWidth="100.0" stylesheets="@../../../Styles/sliderstyle.css" />
+      <Button fx:id="muteButton" layoutX="877.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" stylesheets="@../../../Styles/imageButtons.css" />
     </children>
 </AnchorPane>
