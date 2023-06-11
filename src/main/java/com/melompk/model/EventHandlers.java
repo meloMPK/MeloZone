@@ -82,17 +82,24 @@ public class EventHandlers {
                     throw new RuntimeException(e);
                 }
                 RefreshCover.handle(new ActionEvent());
-                SongUtils.player.setOnEndOfMedia(() -> {
-                    try {
-                        SongUtils.Play();
-                    } catch (ExecutionException | IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
             }
             else SongUtils.Pause();
             for(PlayerController contr: playerControllers){
                 contr.refresh();
+            }
+        }
+    };
+
+    public static EventHandler<ActionEvent> Mute = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            if (SongUtils.player == null) return;
+            if(!SongUtils.player.isMute()) {
+                SongUtils.player.setMute(true);
+                for(PlayerController contr: playerControllers) contr.muteRefresh();
+            } else {
+                SongUtils.player.setMute(false);
+                for(PlayerController contr: playerControllers) contr.muteRefresh();
             }
         }
     };

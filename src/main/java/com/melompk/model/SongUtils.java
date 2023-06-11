@@ -1,6 +1,8 @@
 package com.melompk.model;
 import com.melompk.data.Song;
 import com.melompk.model.SongQueue;
+import javafx.event.ActionEvent;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -43,9 +45,15 @@ public class SongUtils {//Controller
 
     public static void NextSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.NextSong();
-        if(curSong==null)return;
+        if(curSong==null) return;
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);
+
+        player.setOnEndOfMedia(() -> {
+            System.out.println("shca;ibg");
+            SongUtils.curSong = null;
+            EventHandlers.Next.handle(new ActionEvent());
+        });
         // player.play();
     }
 
