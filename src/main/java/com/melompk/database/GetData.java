@@ -46,8 +46,11 @@ public class GetData {//Model
     public static LinkedList<Album> GetAllAlbumsFromArtist(String artistId) throws ExecutionException, InterruptedException {
         LinkedList<Album> albums = new LinkedList<>();
         for(QueryDocumentSnapshot album:FirebaseHandler.db.collection("Albums").whereEqualTo("ArtistId", artistId).get().get()){
-
-            albums.add(new Album((String) album.get("Name"),artistId, album.getId()));
+            String artistName="";
+            if(album.get("ArtistId")!=null){
+                artistName = (String) FirebaseHandler.db.collection("Artists").document((String) album.get("ArtistId")).get().get().get("Name");
+            }
+            albums.add(new Album((String) album.get("Name"),artistId, album.getId(),artistName));
         }
         return albums;
     }

@@ -21,7 +21,7 @@ public class SearchUtils {
     }
     public static LinkedList<MediaInfo> SearchArtists(String query) throws ExecutionException, InterruptedException {
         LinkedList<MediaInfo> artists = new LinkedList<>();
-        for(QueryDocumentSnapshot artist: FirebaseHandler.db.collection("Artists").orderBy("Name").startAt(query).endAt(query+"\uf8ff").limit(3).get().get().getDocuments()){
+        for(QueryDocumentSnapshot artist: FirebaseHandler.db.collection("Artists").orderBy("Name").startAt(query).endAt(query+"\uf8ff").limit(10).get().get().getDocuments()){
             artists.add(new Artist((String) artist.get("Name"), artist.getId()));
         }
         return artists;
@@ -39,8 +39,12 @@ public class SearchUtils {
     }
     public static LinkedList<MediaInfo> SearchAlbums(String query) throws ExecutionException, InterruptedException, NumberFormatException {
         LinkedList<MediaInfo> albums = new LinkedList<>();
-        for(QueryDocumentSnapshot album:FirebaseHandler.db.collection("Albums").orderBy("Name").startAt(query).endAt(query+"\uf8ff").limit(5).get().get().getDocuments()){
-            albums.add(new Album((String) album.get("Name"), (String) album.get("ArtistId"), album.getId()));
+        for(QueryDocumentSnapshot album:FirebaseHandler.db.collection("Albums").orderBy("Name").startAt(query).endAt(query+"\uf8ff").limit(10).get().get().getDocuments()){
+            String artistName="";
+            if(album.get("ArtistId")!=null){
+                artistName = (String) FirebaseHandler.db.collection("Artists").document((String) album.get("ArtistId")).get().get().get("Name");
+            }
+            albums.add(new Album((String) album.get("Name"), (String) album.get("ArtistId"), album.getId(), artistName));
         }
         return albums;
     }

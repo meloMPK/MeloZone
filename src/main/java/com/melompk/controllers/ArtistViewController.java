@@ -95,8 +95,8 @@ public class ArtistViewController implements Initializable{
         Label albumName=new Label(item.name);
         albumName.setStyle("-fx-text-fill: white");
         albumName.setMinHeight(40);
-        DownloadUtils.DownloadArtistImage(item.imageId);
-        if (DownloadUtils.IsArtistImageDownloaded((item).imageId+".jpg")) {
+        DownloadUtils.DownloadCover(item.imageId);
+        if (DownloadUtils.IsCoverDownloaded((item).imageId+".jpg")) {
             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/"+ (item.imageId + ".jpg")).toUri().toString()));
         } else {
             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));

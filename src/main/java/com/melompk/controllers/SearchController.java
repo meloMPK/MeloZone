@@ -122,6 +122,7 @@ public class SearchController implements Initializable {
                         }
                         if(!(item instanceof Artist)){
                             infoLabel.setText(item.artistName);
+                            System.out.println(item.artistName);
                             infoLabel.setStyle("-fx-text-fill: #909090");
                         }
                         if(!(item instanceof Song)){
