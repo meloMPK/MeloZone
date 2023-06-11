@@ -10,12 +10,16 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -27,6 +31,8 @@ public class MainController implements Initializable {
     private static Scene scene;
     public Button closeButton;
     public Button minimiseButton;
+
+    public ImageView closeGraphic, minimiseGraphic;
 
     public void SetAlbumView(){
         albumView.setVisible(true);
@@ -47,7 +53,19 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SetCoverTitleView();
         EventHandlers.mainControllers.add(this);
+        closeGraphic = new ImageView();
+        closeGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/exit.png").toUri().toString()));;
+        closeGraphic.setFitHeight(12);
+        closeGraphic.setPreserveRatio(true);
+        closeButton.setGraphic(closeGraphic);
 
+        minimiseGraphic = new ImageView();
+        minimiseGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/minimise.png").toUri().toString()));;
+        minimiseGraphic.setFitHeight(12);
+        minimiseGraphic.setPreserveRatio(true);
+        minimiseButton.setGraphic(minimiseGraphic);
+
+        //stolen from https://gist.github.com/jewelsea/2658491
         final Delta dragDelta = new Delta();
         titlebar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent mouseEvent) {
