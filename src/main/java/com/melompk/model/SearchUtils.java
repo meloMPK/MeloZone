@@ -1,5 +1,6 @@
 package com.melompk.model;
 
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.melompk.data.Album;
 import com.melompk.data.Artist;
@@ -25,6 +26,18 @@ public class SearchUtils {
             artists.add(new Artist((String) artist.get("Name"), artist.getId()));
         }
         return artists;
+    }
+    public static Artist SearchArtistsById(String query) throws ExecutionException, InterruptedException {
+        DocumentSnapshot artistSnapshot = FirebaseHandler.db.collection("Artists").document(query).get().get();
+        return new Artist((String) artistSnapshot.get("Name"), artistSnapshot.getId());
+    }
+    public static Album SearchAlbumById(String query) throws ExecutionException, InterruptedException {
+        DocumentSnapshot albumSnapshot = FirebaseHandler.db.collection("Albums").document(query).get().get();
+        String artistName="";
+        if(albumSnapshot.get("ArtistId")!=null){
+            artistName = (String) FirebaseHandler.db.collection("Artists").document((String) albumSnapshot.get("ArtistId")).get().get().get("Name");
+        }
+        return new Album((String) albumSnapshot.get("Name"), (String) albumSnapshot.get("ArtistId"), albumSnapshot.getId(), artistName);
     }
     public static LinkedList<MediaInfo> SearchSongs(String query) throws ExecutionException, InterruptedException, NumberFormatException {
         LinkedList<MediaInfo> songs = new LinkedList<>();

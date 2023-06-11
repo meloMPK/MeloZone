@@ -2,6 +2,7 @@ package com.melompk.model;
 
 import com.melompk.controllers.*;
 import com.melompk.data.Album;
+import com.melompk.data.Artist;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +42,11 @@ public class EventHandlers {
     public static void RefreshAlbumView(Album album){
         for(AlbumViewController cur: albumViewControllers){
             cur.refresh(album);
+        }
+    }
+    public static void RefreshArtistView(Artist artist){
+        for(ArtistViewController cur: artistViewControllers){
+            cur.refresh(artist);
         }
     }
     public static void SetArtistView(){

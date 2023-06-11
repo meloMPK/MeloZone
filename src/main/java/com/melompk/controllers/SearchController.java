@@ -122,7 +122,6 @@ public class SearchController implements Initializable {
                         }
                         if(!(item instanceof Artist)){
                             infoLabel.setText(item.artistName);
-                            System.out.println(item.artistName);
                             infoLabel.setStyle("-fx-text-fill: #909090");
                         }
                         if(!(item instanceof Song)){
@@ -170,14 +169,8 @@ public class SearchController implements Initializable {
                 }
 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Artist) {
-                    try {
-                        ArtistViewController.show((Stage)((Node)mouseEvent.getSource()).getScene().getWindow());
-                        for (ArtistViewController contr : EventHandlers.artistViewControllers) {
-                            contr.refresh((Artist)searchResultList.getSelectionModel().getSelectedItem());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    EventHandlers.RefreshArtistView((Artist)searchResultList.getSelectionModel().getSelectedItem());
+                    EventHandlers.SetArtistView();
                 }
             }
         });

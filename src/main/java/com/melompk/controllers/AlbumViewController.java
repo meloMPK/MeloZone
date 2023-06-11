@@ -10,11 +10,13 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 import com.melompk.data.Album;
+import com.melompk.data.Artist;
 import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
 import com.melompk.database.GetData;
 import com.melompk.melo.MeloApplication;
 import com.melompk.model.EventHandlers;
+import com.melompk.model.SearchUtils;
 import com.melompk.model.SongQueue;
 
 import javafx.event.ActionEvent;
@@ -41,7 +43,9 @@ import javafx.stage.Stage;
 
 
 public class AlbumViewController implements Initializable{
+    @FXML
 
+    public Label artistNameLabel;
     @FXML
     private ListView<Song> albumSongsList;
 
@@ -126,6 +130,7 @@ public class AlbumViewController implements Initializable{
         if(album==null) {
             albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
             albumNameLabel.setText("");
+            artistNameLabel.setText("");
             return;
         }
         this.album = album;
@@ -134,6 +139,18 @@ public class AlbumViewController implements Initializable{
             if(!DownloadUtils.IsCoverDownloaded(album.albumId+".jpg")) albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
             else albumCoverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + album.albumId + ".jpg").toUri().toString()));
             albumNameLabel.setText(album.name);
+            artistNameLabel.setText(album.artistName);
+            artistNameLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    EventHandlers.SetArtistView();
+                    try {
+                        EventHandlers.RefreshArtistView(SearchUtils.SearchArtistsById(album.artistId));
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
             List<Song> songs = GetData.GetAllSongsFromAlbum(album.albumId);
             albumSongsList.getItems().setAll(songs);
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}

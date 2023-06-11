@@ -17,8 +17,9 @@
                       <Font name="Segoe UI Semibold" size="49.0" />
                   </font>
               </Label>
-          <Button text="Play" onAction="#Play" layoutX="450.0" layoutY="140.0"/>
-          <Button text="Add to queue" onAction="#AddToQueue" layoutX="500" layoutY="140.0"/>
+          <Label fx:id="artistNameLabel" alignment="CENTER" layoutX="235.0" layoutY="125.0" prefHeight="30.0" prefWidth="400.0" text="Artist name" textAlignment="CENTER" textFill="WHITE"/>
+          <Button text="Play" onAction="#Play" layoutX="450.0" layoutY="170.0"/>
+          <Button text="Add to queue" onAction="#AddToQueue" layoutX="500" layoutY="170.0"/>
         <ListView fx:id="albumSongsList" layoutX="0.0" layoutY="225.0" prefHeight="430.0" prefWidth="635.0" style="-fx-background-color: #202022;" stylesheets="@../../../Styles/albumlistviewCell.css" />
       </AnchorPane>
     </children>
