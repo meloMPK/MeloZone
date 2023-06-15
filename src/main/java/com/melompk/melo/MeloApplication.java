@@ -1,13 +1,9 @@
 package com.melompk.melo;
 
-import com.melompk.controllers.AlbumViewController;
-import com.melompk.database.DownloadUtils;
 import com.melompk.database.FirebaseHandler;
 import com.melompk.model.CoverImageUtils;
-import com.melompk.model.EventHandlers;
 import com.melompk.model.SongQueue;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,6 +16,11 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 public class MeloApplication extends Application {//Controller
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
         FirebaseHandler.initialize();
@@ -39,9 +40,5 @@ public class MeloApplication extends Application {//Controller
         Stage secondStage = new Stage();
         secondStage.setScene(sceneAlt);
         secondStage.show();*/
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

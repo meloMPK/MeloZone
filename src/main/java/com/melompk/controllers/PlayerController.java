@@ -1,8 +1,7 @@
 package com.melompk.controllers;
 
-import com.melompk.database.DownloadUtils;
-import com.melompk.model.SongUtils;
 import com.melompk.model.EventHandlers;
+import com.melompk.model.SongUtils;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -17,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -27,35 +25,36 @@ import java.util.TimerTask;
 public class PlayerController implements Initializable {//View
 
     @FXML
-    private Pane pane;
-    @FXML
-    private Button playButton, prevButton, nextButton, muteButton;
-    @FXML
     public Slider volumeSlider, progressSlider;
     public Label songLabel;
     ImageView playGraphic, pauseGraphic, mutedGraphic, unmutedGraphic;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Button playButton, prevButton, nextButton, muteButton;
     private Timer timer;
     private TimerTask task;
     private boolean isPlaying = false;
     private boolean muted = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(!EventHandlers.playerControllers.isEmpty())
+        if (!EventHandlers.playerControllers.isEmpty())
             volumeSlider.valueProperty().bindBidirectional(EventHandlers.playerControllers.getFirst().volumeSlider.valueProperty());
         EventHandlers.AddPlayerController(this);
         InitializeButtons();
         InitalizeSliders();
     }
-    public void refresh(){
-        isPlaying=SongUtils.isPlaying;
-        if(isPlaying){
+
+    public void refresh() {
+        isPlaying = SongUtils.isPlaying;
+        if (isPlaying) {
             playButton.setGraphic(pauseGraphic);
-        }
-        else{
+        } else {
             playButton.setGraphic(playGraphic);
         }
 
-        if(isPlaying && SongUtils.curSong!=null) beginTimer();
+        if (isPlaying && SongUtils.curSong != null) beginTimer();
         else pauseTimer();
         SongUtils.player.setMute(muted);
         SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
@@ -75,8 +74,8 @@ public class PlayerController implements Initializable {//View
                 isPlaying = true;
                 double current = SongUtils.player.getCurrentTime().toSeconds();
                 double end = SongUtils.curMedia.getDuration().toSeconds();
-                progressSlider.setValue((current/end)*100);
-                if (current/end == 1) cancelTimer();
+                progressSlider.setValue((current / end) * 100);
+                if (current / end == 1) cancelTimer();
             }
         };
 
@@ -85,20 +84,22 @@ public class PlayerController implements Initializable {//View
 
     void cancelTimer() {
         progressSlider.setValue(0);
-        if(timer==null) return;
+        if (timer == null) return;
         timer.cancel();
     }
 
     private void pauseTimer() {
-        if(timer==null) return;
+        if (timer == null) return;
         timer.cancel();
     }
-    void SetImageDefaultSettings(ImageView imv, Image img){
+
+    void SetImageDefaultSettings(ImageView imv, Image img) {
         imv.setFitHeight(40);
         imv.setPreserveRatio(true);
         imv.setImage(img);
     }
-    void InitializeButtons(){
+
+    void InitializeButtons() {
         nextButton.setOnAction(EventHandlers.Next);
         playButton.setOnAction(EventHandlers.Play);
         prevButton.setOnAction(EventHandlers.Prev);
@@ -128,11 +129,12 @@ public class PlayerController implements Initializable {//View
         nextButton.setGraphic(nextGrahpic);
         SetImageDefaultSettings(nextGrahpic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/next.png").toUri().toString()));
     }
-    void InitalizeSliders(){
+
+    void InitalizeSliders() {
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                if(SongUtils.curSong!=null) {
+                if (SongUtils.curSong != null) {
                     SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
                 }
             }
@@ -141,9 +143,9 @@ public class PlayerController implements Initializable {//View
         progressSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable ov) {
-                if (progressSlider.isPressed() && SongUtils.curSong!=null) {
+                if (progressSlider.isPressed() && SongUtils.curSong != null) {
                     SongUtils.player.seek(
-                            SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue()*0.01));
+                            SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue() * 0.01));
                 }
             }
         });

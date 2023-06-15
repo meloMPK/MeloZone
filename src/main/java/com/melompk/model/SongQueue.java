@@ -10,22 +10,34 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutionException;
 
 public class SongQueue {//Model
-    private SongQueue(){};
+
     static ConcurrentLinkedDeque<Song> que;
+
     static LinkedList<Song> playHistory;
-    
-    public static void Add(Song song){
+    private SongQueue() {
+    }
+
+    public static void Add(Song song) {
         que.add(song);
     }
-    public static void Clear(){
+
+    public static void Clear() {
         que.clear();
     }
-    public static void AddFront(Song song) { que.addFirst(song); }
-    public static void AddBack(Song song) { que.addLast(song); }
-    public static boolean IsEmpty(){
+
+    public static void AddFront(Song song) {
+        que.addFirst(song);
+    }
+
+    public static void AddBack(Song song) {
+        que.addLast(song);
+    }
+
+    public static boolean IsEmpty() {
         return que.isEmpty();
     }
-    public static void AddAll(LinkedList<Song> songs){
+
+    public static void AddAll(LinkedList<Song> songs) {
         que.addAll(songs);
     }
 
@@ -35,17 +47,16 @@ public class SongQueue {//Model
     }
 
     public static Song NextSong() throws ExecutionException, InterruptedException, IOException {
-        if(que.isEmpty()){
-            if(playHistory.isEmpty()){
+        if (que.isEmpty()) {
+            if (playHistory.isEmpty()) {
                 que.addAll(GetData.GetAllSongs());
-            }
-            else return null;
+            } else return null;
         }
-        if(SongUtils.curSong!=null)playHistory.addFirst(SongUtils.curSong);
+        if (SongUtils.curSong != null) playHistory.addFirst(SongUtils.curSong);
         Song out = que.poll();
         DownloadUtils.DownloadSong(out.songId);
         DownloadUtils.DownloadCover(out.albumId);
-        if(!que.isEmpty()) {
+        if (!que.isEmpty()) {
             DownloadUtils.DownloadSong(que.getFirst().songId);
             DownloadUtils.DownloadCover(que.getFirst().albumId);
         }
@@ -54,7 +65,7 @@ public class SongQueue {//Model
 
     public static Song PrevSong() throws ExecutionException, InterruptedException, IOException {
         if (playHistory.isEmpty()) return SongUtils.curSong;
-        if(SongUtils.curSong!=null){
+        if (SongUtils.curSong != null) {
             que.addFirst(SongUtils.curSong);
         }
         Song out = playHistory.getFirst();

@@ -5,12 +5,9 @@ import com.melompk.data.Artist;
 import com.melompk.data.MediaInfo;
 import com.melompk.data.Song;
 import com.melompk.database.DownloadUtils;
-import com.melompk.database.GetData;
 import com.melompk.model.EventHandlers;
 import com.melompk.model.SearchUtils;
 import com.melompk.model.SongQueue;
-import javafx.beans.property.ListProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,18 +20,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class SearchController implements Initializable {
 
@@ -52,7 +45,8 @@ public class SearchController implements Initializable {
     @FXML
     private TextField searchBar;
     private Alert confirm;
-    private int searchMode=0;
+    private int searchMode = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SetSearchSongs();
@@ -67,10 +61,10 @@ public class SearchController implements Initializable {
 //        return GetData.GetAllSongs().stream().filter(input -> {
 //            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
 //        }).collect(Collectors.toList());
-        if(searchMode==0){
+        if (searchMode == 0) {
             return SearchUtils.SearchSongs(query);
         }
-        if(searchMode==1){
+        if (searchMode == 1) {
             return SearchUtils.SearchAlbums(query);
         }
         return SearchUtils.SearchArtists(query);
@@ -80,27 +74,32 @@ public class SearchController implements Initializable {
         searchResultList.getItems().clear();
         searchResultList.getItems().addAll((searchList(searchBar.getText())));
     }
-    public void ClearButtons(){
+
+    public void ClearButtons() {
         albumsOptionButton.setDisable(false);
         artistsOptionButton.setDisable(false);
         songsOptionButton.setDisable(false);
     }
-    public void SetSearchSongs(){
+
+    public void SetSearchSongs() {
         ClearButtons();
-        searchMode=0;
+        searchMode = 0;
         songsOptionButton.setDisable(true);
     }
-    public void SetSearchAlbums(){
+
+    public void SetSearchAlbums() {
         ClearButtons();
-        searchMode=1;
+        searchMode = 1;
         albumsOptionButton.setDisable(true);
     }
-    public void SetSearchArtists(){
+
+    public void SetSearchArtists() {
         ClearButtons();
-        searchMode=2;
+        searchMode = 2;
         artistsOptionButton.setDisable(true);
     }
-    void InitializeButtons(){
+
+    void InitializeButtons() {
         //searchutton
         ImageView searchGraphic = new ImageView();
         searchGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/search.png").toUri().toString()));
@@ -108,21 +107,22 @@ public class SearchController implements Initializable {
         searchGraphic.setFitHeight(40);
         searchGraphic.setPreserveRatio(true);
     }
-    void InitializeSearchResultList(){
+
+    void InitializeSearchResultList() {
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
-            HBox hbox = new HBox();
-            VBox vbox = new VBox();
-            Label titleLabel = new Label("");
-            Label infoLabel = new Label("");
-            MenuButton other = new MenuButton();
-            Pane pane = new Pane();
-            ImageView coverImage = new ImageView();
-            MenuItem addFirst = new MenuItem("Add First");
-            MenuItem addLast = new MenuItem("Add Last");
+            final HBox hbox = new HBox();
+            final VBox vbox = new VBox();
+            final Label titleLabel = new Label("");
+            final Label infoLabel = new Label("");
+            final MenuButton other = new MenuButton();
+            final Pane pane = new Pane();
+            final ImageView coverImage = new ImageView();
+            final MenuItem addFirst = new MenuItem("Add First");
+            final MenuItem addLast = new MenuItem("Add Last");
 
             {
                 vbox.getChildren().addAll(titleLabel, infoLabel);
-                hbox.getChildren().addAll(coverImage,vbox,pane, other);
+                hbox.getChildren().addAll(coverImage, vbox, pane, other);
                 coverImage.setFitWidth(30);
                 coverImage.setFitHeight(30);
                 HBox.setHgrow(pane, Priority.ALWAYS);
@@ -133,6 +133,7 @@ public class SearchController implements Initializable {
                 hbox.setMinWidth(270);
                 hbox.setMaxWidth(270);
             }
+
             @Override
             protected void updateItem(MediaInfo item, boolean empty) {
                 super.updateItem(item, empty);
@@ -144,16 +145,15 @@ public class SearchController implements Initializable {
                     try {
                         titleLabel.setText(item.name);
                         infoLabel.setText("");
-                        if(item.imageId!=null){
-                            if(item instanceof Artist){
+                        if (item.imageId != null) {
+                            if (item instanceof Artist) {
                                 DownloadUtils.DownloadArtistImage(item.imageId);
-                                if (DownloadUtils.IsArtistImageDownloaded((item).imageId+".jpg")) {
-                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/"+ (item.imageId + ".jpg")).toUri().toString()));
+                                if (DownloadUtils.IsArtistImageDownloaded((item).imageId + ".jpg")) {
+                                    coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/ArtistImages/" + (item.imageId + ".jpg")).toUri().toString()));
                                 } else {
                                     coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                                 }
-                            }
-                            else {
+                            } else {
                                 DownloadUtils.DownloadCover(item.imageId);
                                 if (DownloadUtils.IsCoverDownloaded((item).imageId + ".jpg")) {
                                     coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Covers/" + (item.imageId + ".jpg")).toUri().toString()));
@@ -161,15 +161,14 @@ public class SearchController implements Initializable {
                                     coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                                 }
                             }
-                        }
-                        else{
+                        } else {
                             coverImage.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/default.jpg").toUri().toString()));
                         }
-                        if(!(item instanceof Artist)){
+                        if (!(item instanceof Artist)) {
                             infoLabel.setText(item.artistName);
                             infoLabel.setStyle("-fx-text-fill: #909090");
                         }
-                        if(!(item instanceof Song)){
+                        if (!(item instanceof Song)) {
                             other.setVisible(false);
                         }
                     } catch (IOException e) {
@@ -209,12 +208,12 @@ public class SearchController implements Initializable {
                 }
 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
-                    EventHandlers.RefreshAlbumView((Album)searchResultList.getSelectionModel().getSelectedItem());
+                    EventHandlers.RefreshAlbumView((Album) searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.SetAlbumView(false);
                 }
 
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Artist) {
-                    EventHandlers.RefreshArtistView((Artist)searchResultList.getSelectionModel().getSelectedItem());
+                    EventHandlers.RefreshArtistView((Artist) searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.SetArtistView();
                 }
             }

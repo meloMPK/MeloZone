@@ -1,8 +1,7 @@
 package com.melompk.model;
+
 import com.melompk.data.Song;
-import com.melompk.model.SongQueue;
 import javafx.event.ActionEvent;
-import javafx.scene.control.RadioMenuItem;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -12,30 +11,36 @@ import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 public class SongUtils {//Controller
-    private SongUtils(){};
+
     public static Media curMedia;
-    public static MediaPlayer player=null;
+
+    public static MediaPlayer player = null;
     public static Song curSong = null;
-    public static boolean isPlaying=false;
+    public static boolean isPlaying = false;
+    private SongUtils() {
+    }
+
     public static void Play() throws ExecutionException, InterruptedException, IOException {
         //Pause();
-        if(curSong!=null){
+        if (curSong != null) {
             player.play();
-            isPlaying=true;
+            isPlaying = true;
             return;
         }
         NextSong();
-        if(curSong==null) return;
-        isPlaying=true;
+        if (curSong == null) return;
+        isPlaying = true;
         player.play();
     }
+
     public static void Pause() {
-        if(player!=null){
+        if (player != null) {
             player.pause();
         }
-        isPlaying=false;
+        isPlaying = false;
     }
-    public static String GetPath(String id){
+
+    public static String GetPath(String id) {
         return Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Songs/" + id + ".mp3").toUri().toString();
     }
 
@@ -45,7 +50,7 @@ public class SongUtils {//Controller
 
     public static void NextSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.NextSong();
-        if(curSong==null) return;
+        if (curSong == null) return;
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);
 
@@ -59,7 +64,7 @@ public class SongUtils {//Controller
 
     public static void PrevSong() throws ExecutionException, InterruptedException, IOException {
         curSong = SongQueue.PrevSong();
-        if(curSong==null)return;
+        if (curSong == null) return;
         curMedia = new Media(GetPath(curSong.songId));
         player = new MediaPlayer(curMedia);
         // player.play();
