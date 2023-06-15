@@ -13,7 +13,7 @@
     <children>
       <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0" style="-fx-background-color: #202022;">
         <ImageView fx:id="artistImage" fitHeight="225.0" fitWidth="225.0" layoutX="31.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="hideButton" layoutX="577.0" layoutY="111.0" mnemonicParsing="false" onAction="#hide" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Styles/imageButtons.css">
+        <Button fx:id="hideButton" layoutX="577.0" layoutY="74.0" mnemonicParsing="false" onAction="#hide" prefHeight="40.0" prefWidth="40.0" stylesheets="@../../../Styles/imageButtons.css">
             <cursor>
                <Cursor fx:constant="HAND" />
             </cursor></Button>
@@ -22,8 +22,8 @@
                       <Font name="Segoe UI Semibold" size="49.0" />
                   </font>
               </Label>
-          <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="32.0" layoutY="321.0" maxHeight="430.0" maxWidth="635.0" minHeight="337.0" minWidth="468.0" prefHeight="337.0" prefWidth="596.0" style="-fx-background-color: #202022;" vbarPolicy="ALWAYS">
-        <TilePane fx:id="artistAlbumsList" prefHeight="324.0" prefWidth="581.0" style="-fx-background-color: #202022;" />
+          <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="-7.0" layoutY="319.0" maxHeight="430.0" maxWidth="641.0" minHeight="337.0" minWidth="468.0" prefHeight="339.0" prefWidth="641.0" style="-fx-background-color: #202022;" vbarPolicy="ALWAYS">
+        <TilePane fx:id="artistAlbumsList" prefHeight="335.0" prefRows="3" prefWidth="618.0" style="-fx-background-color: #202022;" />
           </ScrollPane>
       </AnchorPane>
     </children>
