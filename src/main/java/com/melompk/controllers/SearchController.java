@@ -53,17 +53,62 @@ public class SearchController implements Initializable {
     private TextField searchBar;
     private Alert confirm;
     private int searchMode=0;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SetSearchSongs();
         confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this song now?", ButtonType.YES, ButtonType.NO);
+        InitializeButtons();
+        InitializeSearchResultList();
+    }
+
+    public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {//
+//        List<String> queryArray = Arrays.asList(query.trim().split(" "));
+//
+//        return GetData.GetAllSongs().stream().filter(input -> {
+//            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
+//        }).collect(Collectors.toList());
+        if(searchMode==0){
+            return SearchUtils.SearchSongs(query);
+        }
+        if(searchMode==1){
+            return SearchUtils.SearchAlbums(query);
+        }
+        return SearchUtils.SearchArtists(query);
+    }
+
+    public void search() throws ExecutionException, InterruptedException {
+        searchResultList.getItems().clear();
+        searchResultList.getItems().addAll((searchList(searchBar.getText())));
+    }
+    public void ClearButtons(){
+        albumsOptionButton.setDisable(false);
+        artistsOptionButton.setDisable(false);
+        songsOptionButton.setDisable(false);
+    }
+    public void SetSearchSongs(){
+        ClearButtons();
+        searchMode=0;
+        songsOptionButton.setDisable(true);
+    }
+    public void SetSearchAlbums(){
+        ClearButtons();
+        searchMode=1;
+        albumsOptionButton.setDisable(true);
+    }
+    public void SetSearchArtists(){
+        ClearButtons();
+        searchMode=2;
+        artistsOptionButton.setDisable(true);
+    }
+    void InitializeButtons(){
         //searchutton
         ImageView searchGraphic = new ImageView();
         searchGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/search.png").toUri().toString()));
         searchButton.setGraphic(searchGraphic);
         searchGraphic.setFitHeight(40);
         searchGraphic.setPreserveRatio(true);
+    }
+    void InitializeSearchResultList(){
         searchResultList.setCellFactory(param -> new ListCell<MediaInfo>() {
             HBox hbox = new HBox();
             VBox vbox = new VBox();
@@ -92,7 +137,6 @@ public class SearchController implements Initializable {
             protected void updateItem(MediaInfo item, boolean empty) {
                 super.updateItem(item, empty);
                 titleLabel.setMaxWidth(140);
-
                 if (empty || item == null) {
                     titleLabel.setText("");
                     setGraphic(null);
@@ -163,7 +207,7 @@ public class SearchController implements Initializable {
                     SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.Next.handle(new ActionEvent());
                 }
-                
+
                 if (searchResultList.getSelectionModel().getSelectedItem() instanceof Album) {
                     EventHandlers.RefreshAlbumView((Album)searchResultList.getSelectionModel().getSelectedItem());
                     EventHandlers.SetAlbumView(false);
@@ -175,45 +219,5 @@ public class SearchController implements Initializable {
                 }
             }
         });
-    }
-
-    public List<MediaInfo> searchList(String query) throws ExecutionException, InterruptedException {//
-//        List<String> queryArray = Arrays.asList(query.trim().split(" "));
-//
-//        return GetData.GetAllSongs().stream().filter(input -> {
-//            return queryArray.stream().allMatch(word -> input.title.toLowerCase().contains(word.toLowerCase()));
-//        }).collect(Collectors.toList());
-        if(searchMode==0){
-            return SearchUtils.SearchSongs(query);
-        }
-        if(searchMode==1){
-            return SearchUtils.SearchAlbums(query);
-        }
-        return SearchUtils.SearchArtists(query);
-    }
-
-    public void search() throws ExecutionException, InterruptedException {
-        searchResultList.getItems().clear();
-        searchResultList.getItems().addAll((searchList(searchBar.getText())));
-    }
-    public void ClearButtons(){
-        albumsOptionButton.setDisable(false);
-        artistsOptionButton.setDisable(false);
-        songsOptionButton.setDisable(false);
-    }
-    public void SetSearchSongs(){
-        ClearButtons();
-        searchMode=0;
-        songsOptionButton.setDisable(true);
-    }
-    public void SetSearchAlbums(){
-        ClearButtons();
-        searchMode=1;
-        albumsOptionButton.setDisable(true);
-    }
-    public void SetSearchArtists(){
-        ClearButtons();
-        searchMode=2;
-        artistsOptionButton.setDisable(true);
     }
 }

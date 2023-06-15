@@ -7,7 +7,7 @@
 
 <AnchorPane layoutX="410.0" prefHeight="660.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melompk.controllers.CoverController">
         <children>
-            <ImageView fx:id="coverImage" fitHeight="400.0" fitWidth="400.0" layoutX="118.0" layoutY="100.0" onSwipeUp="#print" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="coverImage" fitHeight="400.0" fitWidth="400.0" layoutX="118.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="songLabel" alignment="CENTER" layoutX="72.0" layoutY="511.0" prefHeight="64.0" prefWidth="491.0" stylesheets="@../../../Styles/fontstyle.css" text="Melozone" textAlignment="CENTER" textFill="WHITE">
                 <font>
                     <Font name="Segoe UI Semibold" size="49.0" />

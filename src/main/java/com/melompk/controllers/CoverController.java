@@ -25,32 +25,7 @@ public class CoverController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
             EventHandlers.AddCoverController(this);
             refresh();
-            artistLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if(SongUtils.curSong!=null) {
-                        EventHandlers.SetArtistView();
-                        try {
-                            EventHandlers.RefreshArtistView(SearchUtils.SearchArtistsById(SongUtils.curSong.artistId));
-                        } catch (ExecutionException | InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            });
-            coverImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if(SongUtils.curSong!=null) {
-                        EventHandlers.SetAlbumView(false);
-                        try {
-                            EventHandlers.RefreshAlbumView(SearchUtils.SearchAlbumById(SongUtils.curSong.albumId));
-                        } catch (ExecutionException | InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-        });
+            InitializeImageAction();
     }
     public void refresh(){
         coverImage.setImage(CoverImageUtils.image);
@@ -65,8 +40,32 @@ public class CoverController implements Initializable {
             artistLabel.setText("MeloMPK");
         }
     }
-
-    public void print(SwipeEvent swipeEvent) {
-        System.out.println("xddddd");
+    void InitializeImageAction(){
+        artistLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(SongUtils.curSong!=null) {
+                    EventHandlers.SetArtistView();
+                    try {
+                        EventHandlers.RefreshArtistView(SearchUtils.SearchArtistsById(SongUtils.curSong.artistId));
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+        coverImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(SongUtils.curSong!=null) {
+                    EventHandlers.SetAlbumView(false);
+                    try {
+                        EventHandlers.RefreshAlbumView(SearchUtils.SearchAlbumById(SongUtils.curSong.albumId));
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 }

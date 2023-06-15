@@ -53,6 +53,11 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SetCoverTitleView();
         EventHandlers.mainControllers.add(this);
+        InitializeButtons();
+        InitializeTitle();
+        //copied from https://gist.github.com/jewelsea/2658491
+    }
+    public void InitializeButtons(){
         closeGraphic = new ImageView();
         closeGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/exit.png").toUri().toString()));;
         closeGraphic.setFitHeight(12);
@@ -64,8 +69,18 @@ public class MainController implements Initializable {
         minimiseGraphic.setFitHeight(12);
         minimiseGraphic.setPreserveRatio(true);
         minimiseButton.setGraphic(minimiseGraphic);
+    }
 
-        //stolen from https://gist.github.com/jewelsea/2658491
+    public void closeApp(ActionEvent actionEvent) {
+        Platform.exit();
+        try {
+            DownloadUtils.Clear();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.exit(0);
+    }
+    void InitializeTitle(){
         final Delta dragDelta = new Delta();
         titlebar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent mouseEvent) {
@@ -81,18 +96,6 @@ public class MainController implements Initializable {
                 stage.setY(mouseEvent.getScreenY() + dragDelta.y);
             }
         });
-
-
-    }
-
-    public void closeApp(ActionEvent actionEvent) {
-        Platform.exit();
-        try {
-            DownloadUtils.Clear();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.exit(0);
     }
 
     public void minimiseApp(ActionEvent actionEvent) {

@@ -38,22 +38,16 @@ import javafx.scene.layout.VBox;
 
 public class AlbumViewController implements Initializable{
     @FXML
-
     public Label artistNameLabel;
     @FXML
     private ListView<Song> albumSongsList;
-
     @FXML
     private ImageView albumCoverImage = new ImageView(), hideGraphic;
-
     @FXML
     private Label albumNameLabel;
-
     @FXML
     private Button hideButton;
-
     private Album album;
-    
     private Alert confirm;
     public boolean isReferencedFromArtist=false;
 
@@ -61,14 +55,9 @@ public class AlbumViewController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
         EventHandlers.AddAlbumViewController(this);
-        hideGraphic = new ImageView();
-        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
-        hideButton.setGraphic(hideGraphic);
-        hideGraphic.setFitHeight(23);
-        hideGraphic.setPreserveRatio(true);
-
         confirm = new Alert(Alert.AlertType.CONFIRMATION, "Queue is not empty, do you want to clear queue and play this now?", ButtonType.YES, ButtonType.NO);
-        
+        InitializeButtons();
+
         albumSongsList.setCellFactory(param -> new ListCell<Song>() {
             HBox hbox = new HBox();
             VBox vbox = new VBox();
@@ -152,7 +141,6 @@ public class AlbumViewController implements Initializable{
             albumSongsList.getItems().setAll(songs);
         } catch (ExecutionException | InterruptedException | IOException e) {System.out.println(e);}
     }
-
     public void hide() throws IOException {
         if(isReferencedFromArtist) EventHandlers.SetArtistView();
         else EventHandlers.SetCoverTitleView();
@@ -172,5 +160,12 @@ public class AlbumViewController implements Initializable{
 
     public void AddToQueue() {
         SongQueue.AddAll(new LinkedList<>(albumSongsList.getItems()));
+    }
+    void InitializeButtons(){
+        hideGraphic = new ImageView();
+        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
+        hideButton.setGraphic(hideGraphic);
+        hideGraphic.setFitHeight(23);
+        hideGraphic.setPreserveRatio(true);
     }
 }

@@ -45,17 +45,12 @@ public class ArtistViewController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        InitializeButtons();
         EventHandlers.AddArtistViewController(this);
-        hideGraphic = new ImageView();
-        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
-        hideButton.setGraphic(hideGraphic);
-        hideGraphic.setFitHeight(23);
-        hideGraphic.setPreserveRatio(true);
         refresh(null);
         artistAlbumsList.setVgap(3);
         artistAlbumsList.setHgap(3);
         artistAlbumsList.setPrefColumns(10);
-
     }
 
     public void refresh(Artist artist) {
@@ -112,5 +107,11 @@ public class ArtistViewController implements Initializable{
     public void hide() throws IOException {
         EventHandlers.SetCoverTitleView();
     }
-    
+    public void InitializeButtons(){
+        hideGraphic = new ImageView();
+        hideGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/hide.png").toUri().toString()));
+        hideButton.setGraphic(hideGraphic);
+        hideGraphic.setFitHeight(23);
+        hideGraphic.setPreserveRatio(true);
+    }
 }

@@ -38,77 +38,13 @@ public class PlayerController implements Initializable {//View
     private TimerTask task;
     private boolean isPlaying = false;
     private boolean muted = false;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(!EventHandlers.playerControllers.isEmpty())
             volumeSlider.valueProperty().bindBidirectional(EventHandlers.playerControllers.getFirst().volumeSlider.valueProperty());
         EventHandlers.AddPlayerController(this);
-        nextButton.setOnAction(EventHandlers.Next);
-        playButton.setOnAction(EventHandlers.Play);
-        prevButton.setOnAction(EventHandlers.Prev);
-        muteButton.setOnAction(EventHandlers.Mute);
-
-        //muteButton
-        mutedGraphic = new ImageView();
-        unmutedGraphic = new ImageView();
-        mutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/muted.png").toUri().toString()));
-        unmutedGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/unmuted.png").toUri().toString()));
-        muteButton.setGraphic(unmutedGraphic);
-        mutedGraphic.setFitHeight(40);
-        unmutedGraphic.setFitHeight(40);
-        mutedGraphic.setPreserveRatio(true);
-        unmutedGraphic.setPreserveRatio(true);
-
-        //playButton
-        playGraphic = new ImageView();
-        pauseGraphic = new ImageView();
-        playGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/play.png").toUri().toString()));
-        pauseGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/pause.png").toUri().toString()));
-        playButton.setGraphic(playGraphic);
-        playGraphic.setFitHeight(40);
-        pauseGraphic.setFitHeight(40);
-        playGraphic.setPreserveRatio(true);
-        pauseGraphic.setPreserveRatio(true);
-
-        //prevButton
-        ImageView prevGraphic = new ImageView();
-        prevGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/prev.png").toUri().toString()));
-        prevButton.setGraphic(prevGraphic);
-        prevGraphic.setFitHeight(40);
-        prevGraphic.setPreserveRatio(true);
-
-        //nextButton
-        ImageView nextGrahpic = new ImageView();
-        nextGrahpic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/next.png").toUri().toString()));
-        nextButton.setGraphic(nextGrahpic);
-        nextGrahpic.setFitHeight(40);
-        nextGrahpic.setPreserveRatio(true);
-
-        //reset
-        ImageView resetGraphic = new ImageView();
-        resetGraphic.setImage(new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/reset.png").toUri().toString()));
-        resetGraphic.setFitHeight(20);
-        resetGraphic.setPreserveRatio(true);
-
-        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                if(SongUtils.curSong!=null) {
-                    SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
-                }
-            }
-        });
-
-        progressSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable ov) {
-                if (progressSlider.isPressed() && SongUtils.curSong!=null) {
-                    SongUtils.player.seek(
-                            SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue()*0.01));
-                }
-            }
-        });
+        InitializeButtons();
+        InitalizeSliders();
     }
     public void refresh(){
         isPlaying=SongUtils.isPlaying;
@@ -156,5 +92,60 @@ public class PlayerController implements Initializable {//View
     private void pauseTimer() {
         if(timer==null) return;
         timer.cancel();
+    }
+    void SetImageDefaultSettings(ImageView imv, Image img){
+        imv.setFitHeight(40);
+        imv.setPreserveRatio(true);
+        imv.setImage(img);
+    }
+    void InitializeButtons(){
+        nextButton.setOnAction(EventHandlers.Next);
+        playButton.setOnAction(EventHandlers.Play);
+        prevButton.setOnAction(EventHandlers.Prev);
+        muteButton.setOnAction(EventHandlers.Mute);
+
+        //muteButton
+        mutedGraphic = new ImageView();
+        unmutedGraphic = new ImageView();
+        muteButton.setGraphic(unmutedGraphic);
+        SetImageDefaultSettings(mutedGraphic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/muted.png").toUri().toString()));
+        SetImageDefaultSettings(unmutedGraphic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/unmuted.png").toUri().toString()));
+
+        //playButton
+        playGraphic = new ImageView();
+        pauseGraphic = new ImageView();
+        playButton.setGraphic(playGraphic);
+        SetImageDefaultSettings(pauseGraphic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/pause.png").toUri().toString()));
+        SetImageDefaultSettings(playGraphic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/play.png").toUri().toString()));
+
+        //prevButton
+        ImageView prevGraphic = new ImageView();
+        prevButton.setGraphic(prevGraphic);
+        SetImageDefaultSettings(prevGraphic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/prev.png").toUri().toString()));
+
+        //nextButton
+        ImageView nextGrahpic = new ImageView();
+        nextButton.setGraphic(nextGrahpic);
+        SetImageDefaultSettings(nextGrahpic, new Image(Paths.get(new File("").getAbsolutePath() + "/src/main/resources/Utilities/next.png").toUri().toString()));
+    }
+    void InitalizeSliders(){
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if(SongUtils.curSong!=null) {
+                    SongUtils.player.setVolume(volumeSlider.getValue() * 0.01);
+                }
+            }
+        });
+
+        progressSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable ov) {
+                if (progressSlider.isPressed() && SongUtils.curSong!=null) {
+                    SongUtils.player.seek(
+                            SongUtils.player.getMedia().getDuration().multiply(progressSlider.getValue()*0.01));
+                }
+            }
+        });
     }
 }
